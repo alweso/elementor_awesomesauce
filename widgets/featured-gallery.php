@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 * @since 1.1.0
 */
-class CategoryListImages extends Widget_Base {
+class FeaturedGallery extends Widget_Base {
 
 /**
 * Retrieve the widget name.
@@ -21,7 +21,7 @@ class CategoryListImages extends Widget_Base {
 * @return string Widget name.
 */
 public function get_name() {
-  return 'category-list-images';
+  return 'featured-gallery';
 }
 
 /**
@@ -34,7 +34,7 @@ public function get_name() {
 * @return string Widget title.
 */
 public function get_title() {
-  return __( 'Category List Images', 'elementor-category-list-images' );
+  return __( 'Featured Gallery', 'elementor-featured-gallery' );
 }
 
 /**
@@ -90,7 +90,7 @@ protected function _register_controls() {
     [
       'label' => __( 'Title', 'elementor-awesomesauce' ),
       'type' => Controls_Manager::TEXT,
-      'default' => __( 'Latest posts', 'elementor-awesomesauce' ),
+      'default' => __( 'Categories', 'elementor-awesomesauce' ),
     ]
   );
 
@@ -159,23 +159,7 @@ protected function _register_controls() {
 * @access protected
 */
 protected function render() {
-  $settings = $this->get_settings_for_display();
-  $tabs = $settings['tabs'];
-  $post_count = count($tabs);
-  $show_date = $settings['show_date'];
-
-  ?>
-  <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-
-  <div class=="categorrrries">
-     <?php 
-  $categories = get_categories();
-  foreach ($categories as $cat) {
-        echo '<img src="'.get_field('category_picture', $cat).'" />';
-    }
-?>
-</div>
-  <?php }
+}
 
   protected function _content_template() {
 

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 * @since 1.1.0
 */
-class CategoryListImages extends Widget_Base {
+class FeaturedPosts2 extends Widget_Base {
 
 /**
 * Retrieve the widget name.
@@ -21,7 +21,7 @@ class CategoryListImages extends Widget_Base {
 * @return string Widget name.
 */
 public function get_name() {
-  return 'category-list-images';
+  return 'featured-posts-2';
 }
 
 /**
@@ -34,7 +34,7 @@ public function get_name() {
 * @return string Widget title.
 */
 public function get_title() {
-  return __( 'Category List Images', 'elementor-category-list-images' );
+  return __( 'Featured Posts 2', 'elementor-featured-posts-2' );
 }
 
 /**
@@ -90,7 +90,7 @@ protected function _register_controls() {
     [
       'label' => __( 'Title', 'elementor-awesomesauce' ),
       'type' => Controls_Manager::TEXT,
-      'default' => __( 'Latest posts', 'elementor-awesomesauce' ),
+      'default' => __('Featured posts', 'elementor-awesomesauce' ),
     ]
   );
 
@@ -114,35 +114,6 @@ protected function _register_controls() {
     ]
   );
 
-  $this->add_control(
-    'tabs',
-    [
-      'label' => esc_html__('Tabs', 'elementor-awesomesauce'),
-      'type' => Controls_Manager::REPEATER,
-      'default' => [
-        [
-          'tab_title' => esc_html__('Add Label', 'elementor-awesomesauce'),
-          'post_cats' => 1,
-        ],
-      ],
-      'fields' => [
-        [
-          'name' => 'post_cats',
-          'label' => __( 'Categories( Include )', 'elementor-awesomesauce' ),
-          'type' => \Elementor\Controls_Manager::SELECT2,
-          'options' => $this->post_category(),
-          'label_block' => true,
-          'multiple' => true,
-        ],
-        [   
-          'name' => 'tab_title',
-          'label'         => esc_html__( 'Tab title', 'elementor-awesomesauce' ),
-          'type'          => Controls_Manager::TEXT,
-          'default'       => 'Add Label',
-        ],
-      ],
-    ]
-  );
 
 
 
@@ -160,21 +131,42 @@ protected function _register_controls() {
 */
 protected function render() {
   $settings = $this->get_settings_for_display();
-  $tabs = $settings['tabs'];
-  $post_count = count($tabs);
+  $post_count = $settings['post_count'];
   $show_date = $settings['show_date'];
+  $title = $settings['title'];
 
   ?>
-  <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+  <h2><?php $title ?></h2>
 
-  <div class=="categorrrries">
-     <?php 
-  $categories = get_categories();
-  foreach ($categories as $cat) {
-        echo '<img src="'.get_field('category_picture', $cat).'" />';
-    }
-?>
-</div>
+  <div class="tab-content" id="nav-tabContent">
+
+
+    <?php $args = array(
+      'post_type'   =>  'post',
+      'post_status' => 'publish',
+      'posts_per_page' => $post_count,
+      'meta_key'    => 'is_post_featured_small',
+      'meta_value'  => 'yes'
+    );
+
+    $query = new \WP_Query($args); ?>
+
+    <?php if ( $query->have_posts() ) : ?>
+      <?php $i=0; ?>
+      <?php while ($query->have_posts()) : $query->the_post(); ?>
+        <?php $i++; ?>
+          <div>
+            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" style="float:left;margin-right:20px;padding:10px;background:white;"><?php the_post_thumbnail('medium-horizontal'); ?></a>
+            <h5><?php the_title();?></h5>
+            <?php if($show_date == 'yes') { ?>
+              <span class="post-date"> <i class="fa fa-clock-o"></i> <?php echo get_the_date(get_option('date_format')); ?></span>
+            <?php } ?>
+          </div>
+        <?php endwhile; 
+        wp_reset_postdata(); 
+        $i = 0;?>
+      <?php endif; ?>
+    </div> 
   <?php }
 
   protected function _content_template() {
@@ -191,8 +183,8 @@ protected function render() {
     ) );
 
     $cat_list = [];
-    foreach($terms as $post) {
-      $cat_list[$post->term_id]  = [$post->name];
+    foreach($terms as $term) {
+      $cat_list[$term->term_id]  = [$term->name];
     }
     return $cat_list;
   }

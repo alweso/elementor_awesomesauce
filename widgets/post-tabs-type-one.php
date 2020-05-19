@@ -162,8 +162,6 @@ protected function render() {
   $settings = $this->get_settings_for_display();
   $tabs = $settings['tabs'];
   $post_count = count($tabs);
-  $tab_text = $settings['tab_text'];
-  $tab_title = $settings['tab_title'];
   $show_date = $settings['show_date'];
 
   ?>
@@ -202,6 +200,7 @@ protected function render() {
 
       <?php if ( $query->have_posts() ) : ?>
         <div class="row">
+          <?php $i=0; ?>
           <?php while ($query->have_posts()) : $query->the_post(); ?>
             <?php $i++; ?>
             <?php if ( $i == 1 ) : ?>

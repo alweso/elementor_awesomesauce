@@ -162,8 +162,8 @@ protected function render() {
   $settings = $this->get_settings_for_display();
   $tabs = $settings['tabs'];
   $post_count = count($tabs);
-  $tab_text = $settings['tab_text'];
-  $tab_title = $settings['tab_title'];
+  // $tab_text = $settings['tab_text'];
+  // $tab_title = $settings['tab_title'];
   $show_date = $settings['show_date'];
 
   ?>
@@ -195,6 +195,7 @@ protected function render() {
   flex-wrap: wrap;
   max-height: 600px;
   list-style-type: none;">
+   <?php $i = 0; ?>
           <?php while ($query->have_posts()) : $query->the_post(); ?>
             <?php $i++; ?>
            <?php if ( $i == 1 ) : ?> 

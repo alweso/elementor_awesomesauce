@@ -204,8 +204,8 @@ class VideoPlaylist extends Widget_Base {
                   <li style="background: #efefef;padding:10px;margin-bottom: 10px;">
                     <?php echo '<a href="javascript:void(0);" class="video_on_click" style="float: left;">
                       <span class="vid-thumb"><img width=72 src="https://img.youtube.com/vi/'.$new.'/default.jpg" /></span></a>' ?>
-                    <h5 class="video_on_click"><?php echo explode('</title>',explode('<title>',file_get_contents("https://www.youtube.com/watch?v=$new"))[1])[0];
- ?></h5>
+                    <h6 class="video_on_click"><?php echo explode('</title>',explode('<title>',file_get_contents("https://www.youtube.com/watch?v=$new"))[1])[0];
+ ?></h6>
                     <p class="video_link" style="display: none;"><?php the_field("video_url"); ?></p>
                   </li>
                   <?php else : 
@@ -214,8 +214,8 @@ class VideoPlaylist extends Widget_Base {
                     <?php echo '<a href="javascript:void(0);" class="video_on_click" style="float: left;">
                       <span class="vid-thumb"><img width=72 src="https://img.youtube.com/vi/'.$new.'/default.jpg" /></span></a>' ?>
 
-                      <h5 class="video_on_click"><?php echo explode('</title>',explode('<title>',file_get_contents("https://www.youtube.com/watch?v=$new"))[1])[0];
- ?></h5>
+                      <h6 class="video_on_click"><?php echo explode('</title>',explode('<title>',file_get_contents("https://www.youtube.com/watch?v=$new"))[1])[0];
+ ?></h6>
                     <!--  <h4><?php the_title() ?></h4> -->
                     <p class="video_link" style="display: none;"><?php the_field("video_url"); ?></p>
                   </li>

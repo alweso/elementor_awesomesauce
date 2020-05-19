@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 * @since 1.1.0
 */
-class CategoryListImages extends Widget_Base {
+class PostListTypeOne extends Widget_Base {
 
 /**
 * Retrieve the widget name.
@@ -21,7 +21,7 @@ class CategoryListImages extends Widget_Base {
 * @return string Widget name.
 */
 public function get_name() {
-  return 'category-list-images';
+  return 'post-list-type-one';
 }
 
 /**
@@ -34,7 +34,7 @@ public function get_name() {
 * @return string Widget title.
 */
 public function get_title() {
-  return __( 'Category List Images', 'elementor-category-list-images' );
+  return __( 'Post List Type One', 'elementor-post-list-type-one' );
 }
 
 /**
@@ -88,9 +88,9 @@ protected function _register_controls() {
   $this->add_control(
     'title',
     [
-      'label' => __( 'Title', 'elementor-awesomesauce' ),
+      'label' => __( 'Titleaaa', 'elementor-awesomesauce' ),
       'type' => Controls_Manager::TEXT,
-      'default' => __( 'Latest posts', 'elementor-awesomesauce' ),
+      'default' => __(get_category_link( get_categories()[1]->term_id ), 'elementor-awesomesauce' ),
     ]
   );
 
@@ -115,32 +115,14 @@ protected function _register_controls() {
   );
 
   $this->add_control(
-    'tabs',
+    'choose_category',
     [
-      'label' => esc_html__('Tabs', 'elementor-awesomesauce'),
-      'type' => Controls_Manager::REPEATER,
-      'default' => [
-        [
-          'tab_title' => esc_html__('Add Label', 'elementor-awesomesauce'),
-          'post_cats' => 1,
-        ],
-      ],
-      'fields' => [
-        [
-          'name' => 'post_cats',
-          'label' => __( 'Categories( Include )', 'elementor-awesomesauce' ),
-          'type' => \Elementor\Controls_Manager::SELECT2,
-          'options' => $this->post_category(),
-          'label_block' => true,
-          'multiple' => true,
-        ],
-        [   
-          'name' => 'tab_title',
-          'label'         => esc_html__( 'Tab title', 'elementor-awesomesauce' ),
-          'type'          => Controls_Manager::TEXT,
-          'default'       => 'Add Label',
-        ],
-      ],
+      'label' => esc_html__('Choose category', 'elementor-awesomesauce'),
+      'type' => Controls_Manager::SELECT2,
+      'default' => 1,
+      'type' => \Elementor\Controls_Manager::SELECT2,
+      'options' => $this->post_category(),
+      'multiple' => false,
     ]
   );
 
@@ -160,21 +142,52 @@ protected function _register_controls() {
 */
 protected function render() {
   $settings = $this->get_settings_for_display();
-  $tabs = $settings['tabs'];
-  $post_count = count($tabs);
+  $category = $settings['choose_category'];
+  $post_count = $settings['post_count'];
   $show_date = $settings['show_date'];
+  $title = $settings['title'];
 
   ?>
-  <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+  <h2><?php echo esc_html(get_the_category_by_ID( $category )) ?></h2>
 
-  <div class=="categorrrries">
-     <?php 
-  $categories = get_categories();
-  foreach ($categories as $cat) {
-        echo '<img src="'.get_field('category_picture', $cat).'" />';
-    }
-?>
-</div>
+  <div class="tab-content" id="nav-tabContent">
+
+
+    <?php $args = array(
+      'post_type'   =>  'post',
+      'post_status' => 'publish',
+      'posts_per_page' => $post_count,
+      'category__in' => $category,
+    );
+
+    $query = new \WP_Query($args); ?>
+
+    <?php if ( $query->have_posts() ) : ?>
+      <?php $i=0; ?>
+      <?php while ($query->have_posts()) : $query->the_post(); ?>
+        <?php $i++; ?>
+        <?php if ( $i == 1 ) : ?>
+          <div>
+            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" style="float:left;margin-right:20px;padding:10px;background:white;"><?php the_post_thumbnail('medium-horizontal'); ?></a>
+            <h5><?php the_title();?></h5>
+            <?php if($show_date == 'yes') { ?>
+              <span class="post-date"> <i class="fa fa-clock-o"></i> <?php echo get_the_date(get_option('date_format')); ?></span>
+            <?php } ?>
+          </div>
+          <?php else : ?>
+            <div>
+              <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" style="float:left;margin-right:20px;padding:10px;background:white;"><?php the_post_thumbnail('small-horizontal'); ?></a>
+              <h5><?php the_title();?></h5>
+              <?php if($show_date == 'yes') { ?>
+                <span class="post-date"> <i class="fa fa-clock-o"></i> <?php echo get_the_date(get_option('date_format')); ?></span>
+              <?php } ?>
+            </div>
+          <?php endif ?>
+        <?php endwhile; 
+        wp_reset_postdata(); 
+        $i = 0;?>
+      <?php endif; ?>
+    </div> 
   <?php }
 
   protected function _content_template() {
@@ -191,8 +204,8 @@ protected function render() {
     ) );
 
     $cat_list = [];
-    foreach($terms as $post) {
-      $cat_list[$post->term_id]  = [$post->name];
+    foreach($terms as $term) {
+      $cat_list[$term->term_id]  = [$term->name];
     }
     return $cat_list;
   }

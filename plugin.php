@@ -67,6 +67,9 @@ class Plugin {
     require_once( __DIR__ . '/widgets/post-tabs-type-two.php' );
     require_once( __DIR__ . '/widgets/category-list-images.php' );
     require_once( __DIR__ . '/widgets/featured-posts.php' );
+    require_once( __DIR__ . '/widgets/featured-posts-2.php' );
+    require_once( __DIR__ . '/widgets/featured-gallery.php' );
+    require_once( __DIR__ . '/widgets/post-list-type-one.php' );
   }
  
   /**
@@ -90,6 +93,9 @@ class Plugin {
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostTabsTypeTwo() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\CategoryListImages() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedPosts() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedPosts2() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedGallery() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostListTypeOne() );
 
   }
  
