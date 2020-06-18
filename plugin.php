@@ -1,6 +1,6 @@
 <?php
 namespace ElementorAwesomesauce;
- 
+
 /**
  * Class Plugin
  *
@@ -8,7 +8,7 @@ namespace ElementorAwesomesauce;
  * @since 1.0.0
  */
 class Plugin {
- 
+
   /**
    * Instance
    *
@@ -19,7 +19,7 @@ class Plugin {
    * @var Plugin The single instance of the class.
    */
   private static $_instance = null;
- 
+
   /**
    * Instance
    *
@@ -34,10 +34,10 @@ class Plugin {
     if ( is_null( self::$_instance ) ) {
       self::$_instance = new self();
     }
-           
+
     return self::$_instance;
   }
- 
+
   /**
    * widget_scripts
    *
@@ -49,7 +49,7 @@ class Plugin {
   public function widget_scripts() {
     wp_register_script( 'elementor-awesomesauce', plugins_url( '/assets/js/awesomesauce.js', __FILE__ ), [ 'jquery' ], false, true );
   }
- 
+
   /**
    * Include Widgets files
    *
@@ -71,7 +71,7 @@ class Plugin {
     require_once( __DIR__ . '/widgets/featured-gallery.php' );
     require_once( __DIR__ . '/widgets/post-list-type-one.php' );
   }
- 
+
   /**
    * Register Widgets
    *
@@ -83,7 +83,7 @@ class Plugin {
   public function register_widgets() {
     // Its is now safe to include Widgets files
     $this->include_widgets_files();
- 
+
     // Register Widgets
     // \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Awesomesauce() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostTabs() );
@@ -98,7 +98,7 @@ class Plugin {
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostListTypeOne() );
 
   }
- 
+
   /**
    *  Plugin class constructor
    *
@@ -108,14 +108,14 @@ class Plugin {
    * @access public
    */
   public function __construct() {
- 
+
     // Register widget scripts
     add_action( 'elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ] );
- 
+
     // Register widgets
     add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ] );
   }
 }
- 
+
 // Instantiate Plugin Class
 Plugin::instance();

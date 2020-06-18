@@ -1,16 +1,16 @@
 <?php
 namespace ElementorAwesomesauce\Widgets;
- 
+
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
- 
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
- 
+
 /**
  * @since 1.1.0
  */
 class Awesomesauce extends Widget_Base {
- 
+
   /**
    * Retrieve the widget name.
    *
@@ -23,7 +23,7 @@ class Awesomesauce extends Widget_Base {
   public function get_name() {
     return 'awesomesauce';
   }
- 
+
   /**
    * Retrieve the widget title.
    *
@@ -36,7 +36,7 @@ class Awesomesauce extends Widget_Base {
   public function get_title() {
     return __( 'Awesomesauce', 'elementor-awesomesauce' );
   }
- 
+
   /**
    * Retrieve the widget icon.
    *
@@ -49,7 +49,7 @@ class Awesomesauce extends Widget_Base {
   public function get_icon() {
     return 'fa fa-pencil';
   }
- 
+
   /**
    * Retrieve the list of categories the widget belongs to.
    *
@@ -67,7 +67,7 @@ class Awesomesauce extends Widget_Base {
   public function get_categories() {
     return [ 'general' ];
   }
- 
+
   /**
    * Register the widget controls.
    *
@@ -84,7 +84,7 @@ class Awesomesauce extends Widget_Base {
         'label' => __( 'Content', 'elementor-awesomesauce' ),
       ]
     );
- 
+
     $this->add_control(
       'title',
       [
@@ -111,11 +111,11 @@ class Awesomesauce extends Widget_Base {
         'default' => __( '4', 'elementor-awesomesauce' ),
       ]
     );
- 
- 
+
+
     $this->end_controls_section();
   }
- 
+
   /**
    * Render the widget output on the frontend.
    *
@@ -127,7 +127,7 @@ class Awesomesauce extends Widget_Base {
    */
   protected function render() {
     $settings = $this->get_settings_for_display();
- 
+
     $this->add_inline_editing_attributes( 'title', 'none' );
     // $this->add_inline_editing_attributes( 'order_by', 'advanced' );
     // $this->add_inline_editing_attributes( 'post_count', 'advanced' );
@@ -145,8 +145,8 @@ class Awesomesauce extends Widget_Base {
 
      $query = new \WP_Query( $arg ); ?>
 
-      
-        
+
+
         <?php if ( $query->have_posts() ) : ?>
            <?php while ($query->have_posts()) : $query->the_post(); ?>
            <div class="grid-item">
@@ -154,9 +154,9 @@ class Awesomesauce extends Widget_Base {
            </div>
             <?php endwhile; ?>
 
-        <?php endif; 
+        <?php endif;
   }
- 
+
   /**
    * Render the widget output in the editor.
    *

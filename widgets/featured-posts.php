@@ -134,7 +134,7 @@ protected function _register_controls() {
           'label_block' => true,
           'multiple' => true,
         ],
-        [   
+        [
           'name' => 'tab_title',
           'label'         => esc_html__( 'Tab title', 'elementor-awesomesauce' ),
           'type'          => Controls_Manager::TEXT,
@@ -184,7 +184,7 @@ protected function render() {
         'post_status' => 'publish',
         'posts_per_page' => 6,
         'meta_key'    => 'is_post_featured',
-        'meta_value'  => 'yes'
+        'meta_value'  => true,
       );
 
       $query = new \WP_Query($args); ?>
@@ -198,7 +198,7 @@ protected function render() {
    <?php $i = 0; ?>
           <?php while ($query->have_posts()) : $query->the_post(); ?>
             <?php $i++; ?>
-           <?php if ( $i == 1 ) : ?> 
+           <?php if ( $i == 1 ) : ?>
               <div class="" style="flex: 0 0 100%;
   width: 65%;">
                 <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" style="margin-right:20px;padding:10px;background:white;display: block;"><?php the_post_thumbnail('large-horizontal'); ?></a>
@@ -215,10 +215,10 @@ protected function render() {
               <?php if($show_date == 'yes') { ?>
                 <span class="post-date"> <i class="fa fa-clock-o"></i> <?php echo get_the_date(get_option('date_format')); ?></span>
               <?php } ?>
-                </div> 
+                </div>
          <?php endif ?>
-            <?php endwhile; 
-            wp_reset_postdata(); 
+            <?php endwhile;
+            wp_reset_postdata();
             $i = 0;?>
           </div>
         <?php endif; ?>
@@ -237,7 +237,7 @@ protected function render() {
     $terms = get_terms( array(
       'taxonomy'    => 'category',
       'hide_empty'  => false,
-      'posts_per_page' => -1, 
+      'posts_per_page' => -1,
       'suppress_filters' => false,
     ) );
 

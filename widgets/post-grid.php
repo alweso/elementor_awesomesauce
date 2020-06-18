@@ -1,16 +1,16 @@
 <?php
 namespace ElementorAwesomesauce\Widgets;
- 
+
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
- 
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
- 
+
 /**
  * @since 1.1.0
  */
 class PostGrid extends Widget_Base {
- 
+
   /**
    * Retrieve the widget name.
    *
@@ -23,7 +23,7 @@ class PostGrid extends Widget_Base {
   public function get_name() {
     return 'post-grid';
   }
- 
+
   /**
    * Retrieve the widget title.
    *
@@ -36,7 +36,7 @@ class PostGrid extends Widget_Base {
   public function get_title() {
     return __( 'Post Grid', 'elementor-post-grid' );
   }
- 
+
   /**
    * Retrieve the widget icon.
    *
@@ -49,7 +49,7 @@ class PostGrid extends Widget_Base {
   public function get_icon() {
     return 'fa fa-pencil';
   }
- 
+
   /**
    * Retrieve the list of categories the widget belongs to.
    *
@@ -67,7 +67,7 @@ class PostGrid extends Widget_Base {
   public function get_categories() {
     return [ 'general' ];
   }
- 
+
   /**
    * Register the widget controls.
    *
@@ -84,7 +84,7 @@ class PostGrid extends Widget_Base {
         'label' => __( 'Content', 'elementor-awesomesauce' ),
       ]
     );
- 
+
     $this->add_control(
       'title',
       [
@@ -145,11 +145,11 @@ class PostGrid extends Widget_Base {
              'default' => 'yes',
          ]
    );
- 
- 
+
+
     $this->end_controls_section();
   }
- 
+
   /**
    * Render the widget output on the frontend.
    *
@@ -164,7 +164,7 @@ class PostGrid extends Widget_Base {
     $show_cat           = $settings['show_cat'];
     $show_date          = $settings['show_date'];
     $show_author         = $settings['show_author'];
- 
+
     $this->add_inline_editing_attributes( 'title', 'none' );
     // $this->add_inline_editing_attributes( 'order_by', 'advanced' );
     // $this->add_inline_editing_attributes( 'post_count', 'advanced' );
@@ -174,7 +174,7 @@ class PostGrid extends Widget_Base {
 
 
 
-   <?php  
+   <?php
      $arg = [
             'post_type'   =>  'post',
             'post_status' => 'publish',
@@ -185,7 +185,7 @@ class PostGrid extends Widget_Base {
 
 
 
-          $queryd = new \WP_Query( $arg ); 
+          $queryd = new \WP_Query( $arg );
 
 
 
@@ -236,7 +236,7 @@ class PostGrid extends Widget_Base {
             <?php endwhile; ?>
 <?php wp_reset_postdata(); ?>
 </div>
-        <?php endif; ?>   
+        <?php endif; ?>
 
 
 
@@ -248,8 +248,8 @@ class PostGrid extends Widget_Base {
 
 
 
- <?php } 
- 
+ <?php }
+
 
   protected function _content_template() {
 
@@ -260,7 +260,7 @@ class PostGrid extends Widget_Base {
       $terms = get_terms( array(
             'taxonomy'    => 'category',
             'hide_empty'  => false,
-            'posts_per_page' => -1, 
+            'posts_per_page' => -1,
             'suppress_filters' => false,
       ) );
 

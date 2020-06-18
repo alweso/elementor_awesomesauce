@@ -146,17 +146,18 @@ protected function render() {
       'post_status' => 'publish',
       'posts_per_page' => $post_count,
       'meta_key'    => 'is_post_featured_small',
-      'meta_value'  => 'yes'
+      'meta_value'  => true
     );
 
     $query = new \WP_Query($args); ?>
 
     <?php if ( $query->have_posts() ) : ?>
+      <div class="row">
       <?php $i=0; ?>
       <?php while ($query->have_posts()) : $query->the_post(); ?>
         <?php $i++; ?>
-          <div>
-            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" style="float:left;margin-right:20px;padding:10px;background:white;"><?php the_post_thumbnail('medium-horizontal'); ?></a>
+        <div class="col-4">
+            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>" style="padding:10px;background:white;"><?php the_post_thumbnail('medium-horizontal'); ?></a>
             <h5><?php the_title();?></h5>
             <?php if($show_date == 'yes') { ?>
               <span class="post-date"> <i class="fa fa-clock-o"></i> <?php echo get_the_date(get_option('date_format')); ?></span>
@@ -165,6 +166,7 @@ protected function render() {
         <?php endwhile; 
         wp_reset_postdata(); 
         $i = 0;?>
+      </div>
       <?php endif; ?>
     </div> 
   <?php }
@@ -178,7 +180,7 @@ protected function render() {
     $terms = get_terms( array(
       'taxonomy'    => 'category',
       'hide_empty'  => false,
-      'posts_per_page' => -1, 
+      'posts_per_page' => $post_count, 
       'suppress_filters' => false,
     ) );
 

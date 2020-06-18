@@ -182,7 +182,11 @@ class VideoPlaylist extends Widget_Base {
           <?php
           $argus = array(
             'post_type' => 'post',
-            'meta_key'    => 'video_url',
+            'posts_per_page' => $settings['post_count'],
+            'meta_key'    => 'video_link',
+            'terms' => array( 
+                'post-format-video',
+            ),
           );
 
           $post_query = new \WP_Query($argus);
@@ -197,27 +201,30 @@ class VideoPlaylist extends Widget_Base {
                 <?php if ( $i == 1 ) : ?>
                   <div class="vid-container" style="margin-bottom: 5px;margin-right:15px;width:50%;float: left;">
                     <iframe id="vid_frame" src="" frameborder="0" width="auto" height="300"></iframe>
-                    <p class="video_link" style="display: none;"><?php the_field("video_url"); ?></p>
+                    <p class="video_link" style="display: none;"><?php the_field("video_link"); ?></p>
                   </div>
                   <ol id="vid-list" style="list-style: none;padding: 0;">
-                    <?php $new = str_replace("https://youtu.be/", '',  get_field('video_url')); ?>
+                    <?php $new = str_replace("https://youtu.be/", '',  get_field('video_link')); ?>
                   <li style="background: #efefef;padding:10px;margin-bottom: 10px;">
+                    <p><?php the_title() ?></p>
                     <?php echo '<a href="javascript:void(0);" class="video_on_click" style="float: left;">
                       <span class="vid-thumb"><img width=72 src="https://img.youtube.com/vi/'.$new.'/default.jpg" /></span></a>' ?>
                     <h6 class="video_on_click"><?php echo explode('</title>',explode('<title>',file_get_contents("https://www.youtube.com/watch?v=$new"))[1])[0];
  ?></h6>
-                    <p class="video_link" style="display: none;"><?php the_field("video_url"); ?></p>
+                    <p class="video_link" style="display: none;"><?php the_field("video_link"); ?></p>
                   </li>
                   <?php else : 
-                     $new = str_replace("https://youtu.be/", '',  get_field('video_url')); ?>
+                     $new = str_replace("https://youtu.be/", '',  get_field('video_link')); ?>
                    <li style="background: #efefef;padding:10px;margin-bottom: 10px;">
+                                        <p><?php the_title() ?></p>
+
                     <?php echo '<a href="javascript:void(0);" class="video_on_click" style="float: left;">
                       <span class="vid-thumb"><img width=72 src="https://img.youtube.com/vi/'.$new.'/default.jpg" /></span></a>' ?>
 
                       <h6 class="video_on_click"><?php echo explode('</title>',explode('<title>',file_get_contents("https://www.youtube.com/watch?v=$new"))[1])[0];
  ?></h6>
                     <!--  <h4><?php the_title() ?></h4> -->
-                    <p class="video_link" style="display: none;"><?php the_field("video_url"); ?></p>
+                    <p class="video_link" style="display: none;"><?php the_field("video_link"); ?></p>
                   </li>
                 <?php endif ?>
                 
