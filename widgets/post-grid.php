@@ -95,6 +95,16 @@ class PostGrid extends Widget_Base {
     );
 
     $this->add_control(
+      'post_title_crop',
+      [
+        'label'         => esc_html__( 'Post Title limit', 'digiqole' ),
+        'type'          => Controls_Manager::NUMBER,
+        'default' => '35',
+
+      ]
+    );
+
+    $this->add_control(
       'order_by',
       [
         'label' => __( 'Show', 'elementor-awesomesauce' ),
@@ -102,9 +112,9 @@ class PostGrid extends Widget_Base {
         'default' => __( 'date', 'elementor-awesomesauce' ),
         'options' => [
           'date'  => __( 'Latest posts', 'elementor-awesomesauce' ),
-					'comment_count'  => __( 'Most commented', 'elementor-awesomesauce' ),
+          'comment_count'  => __( 'Most commented', 'elementor-awesomesauce' ),
           'meta_value_num'  => __( 'Most read', 'elementor-awesomesauce' ),
-				],
+        ],
       ]
     );
 
@@ -123,6 +133,17 @@ class PostGrid extends Widget_Base {
         'label' => __( 'Choose categories', 'elementor-awesomesauce' ),
         'type' => \Elementor\Controls_Manager::SELECT2,
         'options' => $this->post_category(),
+        'label_block' => true,
+        'multiple' => true,
+      ]
+    );
+
+    $this->add_control(
+      'post_tags',
+      [
+        'label' => esc_html__('Select tags', 'digiqole'),
+        'type' => Controls_Manager::SELECT2,
+        'options' => $this->digiqole_post_tags(),
         'label_block' => true,
         'multiple' => true,
       ]
@@ -160,60 +181,6 @@ class PostGrid extends Widget_Base {
       ]
     );
 
-
-		$this->add_responsive_control(
-			'number_of_columns',
-			[
-				'label' => __( 'Number of columns', 'plugin-name' ),
-				'type' => Controls_Manager::SELECT,
-        'default' => __( '12', 'elementor-awesomesauce' ),
-        'options' => [
-          '6'  => __( '2', 'elementor-awesomesauce' ),
-          '4' => __( '3', 'elementor-awesomesauce' ),
-          '3' => __( '4', 'elementor-awesomesauce' ),
-        ],
-				'devices' => [ 'desktop', 'tablet', 'mobile' ],
-				'number_of_columns_desktop' => [
-          'default' => __( '12', 'elementor-awesomesauce' ),
-          'options' => [
-            '6'  => __( '2', 'elementor-awesomesauce' ),
-  					'4' => __( '3', 'elementor-awesomesauce' ),
-  					'3' => __( '4', 'elementor-awesomesauce' ),
-  				],
-				],
-				'number_of_columns_tablet' => [
-          'default' => __( '12', 'elementor-awesomesauce' ),
-          'options' => [
-            '12'  => __( '1', 'elementor-awesomesauce' ),
-  					'6'  => __( '2', 'elementor-awesomesauce' ),
-  					'4' => __( '3', 'elementor-awesomesauce' ),
-  					'3' => __( '4', 'elementor-awesomesauce' ),
-  				],
-				],
-				'number_of_columns_phone' => [
-          'default' => __( '12', 'elementor-awesomesauce' ),
-          'options' => [
-            '12'  => __( '1', 'elementor-awesomesauce' ),
-  					'6'  => __( '2', 'elementor-awesomesauce' ),
-  				],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .widget-image' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-    $this->add_control(
-      'show_on_phones',
-      [
-        'label' => esc_html__('Show on phones', 'digiqole'),
-        'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('', 'digiqole'),
-        'label_off' => esc_html__('col-hidden', 'digiqole'),
-        'default' => '',
-      ]
-    );
-
     $this->add_control(
       'number_of_columns_phone',
       [
@@ -222,19 +189,8 @@ class PostGrid extends Widget_Base {
         'default' => __( '12', 'elementor-awesomesauce' ),
         'options' => [
           '12'  => __( '1', 'elementor-awesomesauce' ),
-					'6'  => __( '2', 'elementor-awesomesauce' ),
-				],
-      ]
-    );
-
-    $this->add_control(
-      'show_on_tablets',
-      [
-        'label' => esc_html__('Show on tablets', 'digiqole'),
-        'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('', 'digiqole'),
-        'label_off' => esc_html__('col-md-hidden', 'digiqole'),
-        'default' => '',
+          '6'  => __( '2', 'elementor-awesomesauce' ),
+        ],
       ]
     );
 
@@ -246,21 +202,10 @@ class PostGrid extends Widget_Base {
         'default' => __( '6', 'elementor-awesomesauce' ),
         'options' => [
           '12'  => __( '1', 'elementor-awesomesauce' ),
-					'6'  => __( '2', 'elementor-awesomesauce' ),
-					'4' => __( '3', 'elementor-awesomesauce' ),
-					'3' => __( '4', 'elementor-awesomesauce' ),
-				],
-      ]
-    );
-
-    $this->add_control(
-      'show_on_desktop',
-      [
-        'label' => esc_html__('Show on phones', 'digiqole'),
-        'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('', 'digiqole'),
-        'label_off' => esc_html__('col-lg-hidden', 'digiqole'),
-        'default' => '',
+          '6'  => __( '2', 'elementor-awesomesauce' ),
+          '4' => __( '3', 'elementor-awesomesauce' ),
+          '3' => __( '4', 'elementor-awesomesauce' ),
+        ],
       ]
     );
 
@@ -271,13 +216,86 @@ class PostGrid extends Widget_Base {
         'type' => Controls_Manager::SELECT,
         'default' => __( '3', 'elementor-awesomesauce' ),
         'options' => [
-					'6'  => __( '2', 'elementor-awesomesauce' ),
-					'4' => __( '3', 'elementor-awesomesauce' ),
-					'3' => __( '4', 'elementor-awesomesauce' ),
-				],
+          '6'  => __( '2', 'elementor-awesomesauce' ),
+          '4' => __( '3', 'elementor-awesomesauce' ),
+          '3' => __( '4', 'elementor-awesomesauce' ),
+        ],
       ]
     );
 
+
+    $this->add_responsive_control(
+      'thumbnail_height',
+      [
+        'label' =>esc_html__( 'Thumbnail Height', 'digiqole' ),
+        'type' => \Elementor\Controls_Manager::SLIDER,
+        'range' => [
+          'px' => [
+            'min' => 0,
+            'max' => 1000,
+          ],
+        ],
+        'devices' => [ 'desktop', 'tablet', 'mobile' ],
+        'desktop_default' => [
+          'size' => 300,
+          'unit' => 'px',
+        ],
+        'tablet_default' => [
+          'size' => 250,
+          'unit' => 'px',
+        ],
+        'mobile_default' => [
+          'size' => 250,
+          'unit' => 'px',
+        ],
+        'selectors' => [
+          '{{WRAPPER}} .featured-post .item' => 'min-height: {{SIZE}}{{UNIT}};',
+        ],
+
+      ]
+    );
+
+    $this->add_responsive_control(
+      'col_number',
+      [
+        'label' =>esc_html__( 'Column number', 'digiqole' ),
+        'type' => \Elementor\Controls_Manager::SLIDER,
+        'range' => [
+          'px' => [
+            'min' => 0,
+            'max' => 1000,
+          ],
+        ],
+        'devices' => [ 'desktop', 'tablet', 'mobile' ],
+        'desktop_default' => [
+          'size' => 300,
+          'unit' => 'px',
+        ],
+        'tablet_default' => [
+          'size' => 250,
+          'unit' => 'px',
+        ],
+        'mobile_default' => [
+          'size' => 250,
+          'unit' => 'px',
+        ],
+        'selectors' => [
+          '{{WRAPPER}} .featured-post .item' => 'min-height: {{SIZE}}{{UNIT}};',
+        ],
+
+      ]
+    );
+
+
+    $this->end_controls_section();
+
+    $this->start_controls_section(
+      'style_section',
+      [
+        'label' => __( 'Style Section', 'plugin-name' ),
+        'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+      ]
+    );
 
     $this->end_controls_section();
   }
@@ -297,8 +315,9 @@ class PostGrid extends Widget_Base {
     $show_date          = $settings['show_date'];
     $show_author         = $settings['show_author'];
     $number_of_columns_phone = $settings['number_of_columns_phone'];
-    $number_of_columns_tablet = $settings['number_of_columns_tablet'];
+    $number_of_columns_tablet = $settings['posts_per_page'];
     $number_of_columns_desktop = $settings['number_of_columns_desktop'];
+    $crop	= (isset($settings['post_title_crop'])) ? $settings['post_title_crop'] : 20;
 
     $this->add_inline_editing_attributes( 'title', 'none' );
     // $this->add_inline_editing_attributes( 'order_by', 'advanced' );
@@ -311,6 +330,9 @@ class PostGrid extends Widget_Base {
       'orderby' => $settings['order_by'],
       'posts_per_page' => $settings['post_count'],
       'category__in' => $settings['post_categories'],
+      // 'tag' => 'family, games, fun',
+      // 'tag' => $settings['post_tags'],
+      'tag__in' => $settings['post_tags'],
       'meta_key'    => 'number_of_views',
 
     ];
@@ -320,11 +342,21 @@ class PostGrid extends Widget_Base {
       <div class="col-12">
         <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
         <p><?php echo get_field('number_of_views'); ?></p>
+        <h3>
+          <?php $allTags = $settings['post_tags'];
+          foreach ($allTags as $oneTag) {
+            $theTag = get_term_by($oneTag, 'term_id', 'tags');
+            echo $oneTag->name;
+          }
+          ?>
+        </h3>
       </div>
       <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
         <div class="col-<?php echo $number_of_columns_phone ?> col-md-<?php echo $number_of_columns_tablet ?> col-lg-<?php echo $number_of_columns_desktop ?>">
           <!-- <h6><?php echo get_the_title(); ?></h6> -->
-
+          <p style="color:blue">
+            <?php the_tags(); ?>
+          </p>
           <?php if ( has_post_thumbnail() ) : ?>
             <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
               <?php the_post_thumbnail('featured-small', ['class' => 'img-fluid', 'title' => 'Feature image']); ?>
@@ -353,14 +385,14 @@ class PostGrid extends Widget_Base {
               <span>by <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>"><?php the_author(); ?></a></span>
             <?php } ?>
           </div>
-          <?php the_title( sprintf( '<h4 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' ); ?>
+          <!-- <?php the_title( sprintf( '<h4 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' ); ?> -->
+          <?php echo esc_html(wp_trim_words(get_the_title(), $crop,'')); ?>
         </div>
       <?php endwhile; ?>
       <?php wp_reset_postdata(); ?>
     </div>
   <?php endif; ?>
 <?php }
-
 
 protected function _content_template() {
 
@@ -373,6 +405,20 @@ public function post_category() {
     'hide_empty'  => false,
     'posts_per_page' => -1,
     'suppress_filters' => false,
+  ) );
+
+  $cat_list = [];
+  foreach($terms as $post) {
+    $cat_list[$post->term_id]  = [$post->name];
+  }
+  return $cat_list;
+}
+
+function digiqole_post_tags(){
+  $terms = get_terms( array(
+    'taxonomy'    => 'post_tag',
+    'hide_empty'  => false,
+    'posts_per_page' => -1,
   ) );
 
   $cat_list = [];
