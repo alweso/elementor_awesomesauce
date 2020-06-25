@@ -146,11 +146,11 @@ class PostGrid extends Widget_Base {
          [
              'label'     => esc_html__( 'Post pick by', 'digiqole' ),
              'type'      => Controls_Manager::SELECT,
-             'default'   => 'author',
+             'default'   => '',
              'options'   => [
                      'category'      =>esc_html__( 'Category', 'digiqole' ),
                      'tags'      =>esc_html__( 'Tags', 'digiqole' ),
-                     'stickypost'    =>esc_html__( 'Sticky posts', 'digiqole' ),
+                     // 'stickypost'    =>esc_html__( 'Sticky posts', 'digiqole' ),
                      'post'    =>esc_html__( 'Post id', 'digiqole' ),
                      'author'    =>esc_html__( 'Author', 'digiqole' ),
                  ],
@@ -162,6 +162,7 @@ class PostGrid extends Widget_Base {
          [
            'label' => __( 'Choose categories', 'elementor-awesomesauce' ),
            'type' => \Elementor\Controls_Manager::SELECT2,
+           'default' => '',
            'options' => $this->post_category(),
            'label_block' => true,
            'multiple' => true,
@@ -547,7 +548,6 @@ class PostGrid extends Widget_Base {
       // 'category__in' => $settings['post_categories'],
       // 'tag' => 'family, games, fun',
       // 'tag' => $settings['post_tags'],
-      'tag__in' => $settings['post_tags'],
       'meta_key'    => 'number_of_views',
       'order' => $settings['order'],
     ];
@@ -559,6 +559,10 @@ class PostGrid extends Widget_Base {
 
         if($settings['post_pick_by']=='category') {
            $arg['category__in'] = $settings['post_categories'];
+        }
+
+        if($settings['post_pick_by']=='tags') {
+           $arg['tag__in'] = $settings['post_tags'];
         }
 
         if($settings['post_pick_by']=='post') {
