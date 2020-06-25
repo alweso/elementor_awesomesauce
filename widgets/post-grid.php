@@ -105,11 +105,23 @@ class PostGrid extends Widget_Base {
     );
 
     $this->add_control(
+      'show_excerpt',
+      [
+        'label' => esc_html__('Show Description', 'digiqole'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => esc_html__('yes', 'digiqole'),
+        'label_off' => esc_html__('no', 'digiqole'),
+        'default' => 'No',
+      ]
+    );
+
+    $this->add_control(
       'post_content_crop',
       [
         'label'         => esc_html__( 'Post Exerpt limit', 'digiqole' ),
         'type'          => Controls_Manager::NUMBER,
         'default' => '30',
+        'condition' => [ 'show_excerpt' => ['yes'] ]
 
       ]
     );
@@ -381,10 +393,7 @@ class PostGrid extends Widget_Base {
     [
       'label' => __( 'Title Color', 'plugin-domain' ),
       'type' => \Elementor\Controls_Manager::COLOR,
-      'scheme' => [
-        'type' => \Elementor\Scheme_Color::get_type(),
-        'value' => \Elementor\Scheme_Color::COLOR_1,
-      ],
+      'default' => '#000000',
       'selectors' => [
         '{{WRAPPER}} .title' => 'color: {{VALUE}}',
       ],
@@ -595,9 +604,6 @@ class PostGrid extends Widget_Base {
         <div class="col-<?php echo $number_of_columns_phone ?> col-md-<?php echo $number_of_columns_tablet ?> col-lg-<?php echo $number_of_columns_desktop ?>">
           <!-- <h6><?php echo get_the_title(); ?></h6> -->
           <div class="wrapper">
-          <p style="color:blue">
-            <?php the_tags(); ?>
-          </p>
           <?php if ( has_post_thumbnail() ) : ?>
             <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="widget-image d-block">
               <?php the_post_thumbnail('featured-small', ['class' => 'img-fluid', 'title' => 'Feature image']); ?>
@@ -606,16 +612,12 @@ class PostGrid extends Widget_Base {
           <div class="views">
             <?php echo get_field('number_of_views'); ?>
           </div>
+          <p style="color:blue">
+            <?php the_tags(); ?>
+          </p>
           <div class="category">
             <?php if($show_cat) {
               the_category();
-              wp_list_authors( array(
-                  'show_fullname' => 1,
-                  'optioncount'   => 1,
-                  'html'          => false,
-                  'orderby'       => 'post_count',
-                  'order'         => $settings['Order'],
-              ) );
             }
             ?>
           </div>
@@ -635,8 +637,9 @@ class PostGrid extends Widget_Base {
           </div>
           <!-- <?php the_title( sprintf( '<h4 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' ); ?> -->
           <h2 class="title"><?php echo esc_html(wp_trim_words(get_the_title(), $crop,'')); ?></h2>
-          <p><?php esc_html(wp_trim_words(get_the_excerpt(), $post_content_crop, '...') );?></p>
-          <h2><?php echo $post_content_crop ?></h2>
+          <?php if($settings['show_excerpt']) {?>
+          <p><?php echo esc_html( wp_trim_words(get_the_excerpt(),$settings['post_content_crop'],'...') );?></p>
+          <?php } ?>
         </div>
         </div>
       <?php endwhile; ?>
