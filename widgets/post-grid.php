@@ -86,6 +86,17 @@ class PostGrid extends Widget_Base {
     );
 
     $this->add_control(
+      'show_title',
+      [
+        'label' => esc_html__('Show title', 'elementor_awesomesauce'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
+        'default' => 'yes',
+      ]
+    );
+
+    $this->add_control(
       'title',
       [
         'label' => __( 'Title', 'elementor-awesomesauce' ),
@@ -97,7 +108,7 @@ class PostGrid extends Widget_Base {
     $this->add_control(
       'post_title_crop',
       [
-        'label'         => esc_html__( 'Post Title limit', 'digiqole' ),
+        'label'         => esc_html__( 'Post Title limit', 'elementor_awesomesauce' ),
         'type'          => Controls_Manager::NUMBER,
         'default' => '35',
 
@@ -107,10 +118,10 @@ class PostGrid extends Widget_Base {
     $this->add_control(
       'show_excerpt',
       [
-        'label' => esc_html__('Show Description', 'digiqole'),
+        'label' => esc_html__('Show Description', 'elementor_awesomesauce'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('yes', 'digiqole'),
-        'label_off' => esc_html__('no', 'digiqole'),
+        'label_on' => esc_html__('yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('no', 'elementor_awesomesauce'),
         'default' => 'No',
       ]
     );
@@ -118,7 +129,7 @@ class PostGrid extends Widget_Base {
     $this->add_control(
       'post_content_crop',
       [
-        'label'         => esc_html__( 'Post Exerpt limit', 'digiqole' ),
+        'label'         => esc_html__( 'Post Exerpt limit', 'elementor_awesomesauce' ),
         'type'          => Controls_Manager::NUMBER,
         'default' => '30',
         'condition' => [ 'show_excerpt' => ['yes'] ]
@@ -154,63 +165,63 @@ class PostGrid extends Widget_Base {
     );
 
     $this->add_control(
-         'post_pick_by',
-         [
-             'label'     => esc_html__( 'Post pick by', 'digiqole' ),
-             'type'      => Controls_Manager::SELECT,
-             'default'   => '',
-             'options'   => [
-                     'category'      =>esc_html__( 'Category', 'digiqole' ),
-                     'tags'      =>esc_html__( 'Tags', 'digiqole' ),
-                     // 'stickypost'    =>esc_html__( 'Sticky posts', 'digiqole' ),
-                     'post'    =>esc_html__( 'Post id', 'digiqole' ),
-                     'author'    =>esc_html__( 'Author', 'digiqole' ),
-                 ],
-         ]
-       );
-
-       $this->add_control(
-         'post_categories',
-         [
-           'label' => __( 'Choose categories', 'elementor-awesomesauce' ),
-           'type' => \Elementor\Controls_Manager::SELECT2,
-           'default' => '',
-           'options' => $this->post_category(),
-           'label_block' => true,
-           'multiple' => true,
-           'condition' => [ 'post_pick_by' => ['category'] ]
-         ]
-       );
-
-       $this->add_control(
-         'post_tags',
-         [
-           'label' => esc_html__('Select tags', 'digiqole'),
-           'type' => Controls_Manager::SELECT2,
-           'options' => $this->digiqole_post_tags(),
-           'label_block' => true,
-           'multiple' => true,
-           'condition' => [ 'post_pick_by' => ['tags'] ]
-         ]
-       );
+      'post_pick_by',
+      [
+        'label'     => esc_html__( 'Post pick by', 'elementor_awesomesauce' ),
+        'type'      => Controls_Manager::SELECT,
+        'default'   => '',
+        'options'   => [
+          'category'      =>esc_html__( 'Category', 'elementor_awesomesauce' ),
+          'tags'      =>esc_html__( 'Tags', 'elementor_awesomesauce' ),
+          // 'stickypost'    =>esc_html__( 'Sticky posts', 'elementor_awesomesauce' ),
+          'post'    =>esc_html__( 'Post id', 'elementor_awesomesauce' ),
+          'author'    =>esc_html__( 'Author', 'elementor_awesomesauce' ),
+        ],
+      ]
+    );
 
     $this->add_control(
-   'author_id',
-   [
-     'label' => esc_html__( 'Author id', 'digiqole' ),
-     'type' => \Elementor\Controls_Manager::TEXT,
-         'placeholder' => esc_html__( '1,2,3', 'digiqole' ),
-         'condition' => [ 'post_pick_by' => ['author'] ]
-   ]
+      'post_categories',
+      [
+        'label' => __( 'Choose categories', 'elementor-awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::SELECT2,
+        'default' => '',
+        'options' => $this->post_category(),
+        'label_block' => true,
+        'multiple' => true,
+        'condition' => [ 'post_pick_by' => ['category'] ]
+      ]
+    );
+
+    $this->add_control(
+      'post_tags',
+      [
+        'label' => esc_html__('Select tags', 'elementor_awesomesauce'),
+        'type' => Controls_Manager::SELECT2,
+        'options' => $this->elementor_awesomesauce_post_tags(),
+        'label_block' => true,
+        'multiple' => true,
+        'condition' => [ 'post_pick_by' => ['tags'] ]
+      ]
+    );
+
+    $this->add_control(
+      'author_id',
+      [
+        'label' => esc_html__( 'Author id', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::TEXT,
+        'placeholder' => esc_html__( '1,2,3', 'elementor_awesomesauce' ),
+        'condition' => [ 'post_pick_by' => ['author'] ]
+      ]
     );
     $this->add_control(
-   'post_id',
-   [
-     'label' => esc_html__( 'Post id', 'digiqole' ),
-     'type' => \Elementor\Controls_Manager::TEXT,
-         'placeholder' => esc_html__( '1,2,3', 'digiqole' ),
-         'condition' => [ 'post_pick_by' => ['post'] ]
-   ]
+      'post_id',
+      [
+        'label' => esc_html__( 'Post id', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::TEXT,
+        'placeholder' => esc_html__( '1,2,3', 'elementor_awesomesauce' ),
+        'condition' => [ 'post_pick_by' => ['post'] ]
+      ]
     );
 
     $this->add_control(
@@ -225,10 +236,10 @@ class PostGrid extends Widget_Base {
     $this->add_control(
       'show_date',
       [
-        'label' => esc_html__('Show Date', 'digiqole'),
+        'label' => esc_html__('Show Date', 'elementor_awesomesauce'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('Yes', 'digiqole'),
-        'label_off' => esc_html__('No', 'digiqole'),
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
         'default' => 'yes',
       ]
     );
@@ -236,292 +247,224 @@ class PostGrid extends Widget_Base {
     $this->add_control(
       'show_cat',
       [
-        'label' => esc_html__('Show Category', 'digiqole'),
+        'label' => esc_html__('Show Category', 'elementor_awesomesauce'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('Yes', 'digiqole'),
-        'label_off' => esc_html__('No', 'digiqole'),
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
         'default' => 'yes',
+      ]
+    );
+    $this->add_control(
+      'show_tags',
+      [
+        'label' => esc_html__('Show tags', 'elementor_awesomesauce'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
+        'default' => 'no',
       ]
     );
     $this->add_control(
       'show_author',
       [
-        'label' => esc_html__('Show author', 'digiqole'),
+        'label' => esc_html__('Show author', 'elementor_awesomesauce'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('Yes', 'digiqole'),
-        'label_off' => esc_html__('No', 'digiqole'),
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
         'default' => 'yes',
       ]
     );
-
     $this->add_control(
-      'number_of_columns_phone',
+      'show_views',
       [
-        'label' => __( 'Number of columns (phone)', 'elementor-awesomesauce' ),
-        'type' => Controls_Manager::SELECT,
-        'default' => __( '12', 'elementor-awesomesauce' ),
-        'options' => [
-          '12'  => __( '1', 'elementor-awesomesauce' ),
-          '6'  => __( '2', 'elementor-awesomesauce' ),
-        ],
+        'label' => esc_html__('Show views', 'elementor_awesomesauce'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
+        'default' => 'no',
       ]
     );
-
     $this->add_control(
-      'number_of_columns_tablet',
+      'show_comments',
       [
-        'label' => __( 'Number of columns (tablet)', 'elementor-awesomesauce' ),
-        'type' => Controls_Manager::SELECT,
-        'default' => __( '6', 'elementor-awesomesauce' ),
-        'options' => [
-          '12'  => __( '1', 'elementor-awesomesauce' ),
-          '6'  => __( '2', 'elementor-awesomesauce' ),
-          '4' => __( '3', 'elementor-awesomesauce' ),
-          '3' => __( '4', 'elementor-awesomesauce' ),
-        ],
-      ]
-    );
-
-    $this->add_control(
-      'number_of_columns_desktop',
-      [
-        'label' => __( 'Number of columns (desktop)', 'elementor-awesomesauce' ),
-        'type' => Controls_Manager::SELECT,
-        'default' => __( '3', 'elementor-awesomesauce' ),
-        'options' => [
-          '6'  => __( '2', 'elementor-awesomesauce' ),
-          '4' => __( '3', 'elementor-awesomesauce' ),
-          '3' => __( '4', 'elementor-awesomesauce' ),
-        ],
-      ]
-    );
-
-
-    $this->add_responsive_control(
-      'thumbnail_height',
-      [
-        'label' =>esc_html__( 'Thumbnail Height', 'digiqole' ),
-        'type' => \Elementor\Controls_Manager::SLIDER,
-        'range' => [
-          'px' => [
-            'min' => 0,
-            'max' => 1000,
-          ],
-        ],
-        'devices' => [ 'desktop', 'tablet', 'mobile' ],
-        'desktop_default' => [
-          'size' => 300,
-          'unit' => 'px',
-        ],
-        'tablet_default' => [
-          'size' => 250,
-          'unit' => 'px',
-        ],
-        'mobile_default' => [
-          'size' => 250,
-          'unit' => 'px',
-        ],
-        'selectors' => [
-          '{{WRAPPER}} .featured-post .item' => 'min-height: {{SIZE}}{{UNIT}};',
-        ],
-
+        'label' => esc_html__('Show comments', 'elementor_awesomesauce'),
+        'type' => Controls_Manager::SWITCHER,
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
+        'default' => 'no',
       ]
     );
 
     $this->add_responsive_control(
-      'col_number',
+      'number_of_columns',
       [
-        'label' =>esc_html__( 'Column number', 'digiqole' ),
-        'type' => \Elementor\Controls_Manager::SLIDER,
-        'range' => [
-          'px' => [
-            'min' => 0,
-            'max' => 1000,
-          ],
+        'label' => __( 'Number of columns', 'elementor-awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::SELECT,
+        'options' => [
+          '1fr'  => __( '1', 'elementor-awesomesauce' ),
+          '1fr 1fr'  => __( '2', 'elementor-awesomesauce' ),
+          '1fr 1fr 1fr'  => __( '3', 'elementor-awesomesauce' ),
+          '1fr 1fr 1fr 1fr'  => __( '4', 'elementor-awesomesauce' ),
         ],
         'devices' => [ 'desktop', 'tablet', 'mobile' ],
-        'desktop_default' => [
-          'size' => 300,
-          'unit' => 'px',
-        ],
-        'tablet_default' => [
-          'size' => 250,
-          'unit' => 'px',
-        ],
-        'mobile_default' => [
-          'size' => 250,
-          'unit' => 'px',
-        ],
         'selectors' => [
-          '{{WRAPPER}} .featured-post .item' => 'min-height: {{SIZE}}{{UNIT}};',
+          '{{WRAPPER}} .big-wrapper' => 'grid-template-columns: {{VALUE}};',
         ],
+      ]
+    );
 
+    $this->end_controls_section();
+
+    $this->start_controls_section(
+      'typography_section',
+      [
+        'label' => __( 'Typography and text settings', 'elementor-awesomesauce' ),
+        'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+      ]
+    );
+
+    $this->add_group_control(
+      \Elementor\Group_Control_Typography::get_type(),
+      [
+        'label' => __( 'Title typography', '' ),
+        'name' => 'title_typography',
+        'selector' => '{{WRAPPER}} .title',
+      ]
+    );
+
+    $this->add_group_control(
+      \Elementor\Group_Control_Typography::get_type(),
+      [
+        'label' => __( 'Description typography', '' ),
+        'name' => 'desc_typography',
+        'selector' => '{{WRAPPER}} .description',
+      ]
+    );
+
+    $this->add_control(
+      'title_color',
+      [
+        'label' => __( 'Title Color', '' ),
+        'type' => \Elementor\Controls_Manager::COLOR,
+        'default' => '#000000',
+        'selectors' => [
+          '{{WRAPPER}} .title' => 'color: {{VALUE}}',
+        ],
+      ]
+    );
+
+    $this->end_controls_section();
+
+    $this->start_controls_section(
+      'border_section',
+      [
+        'label' => __( 'Grid item border', 'elementor-awesomesauce' ),
+        'tab' => \Elementor\Controls_Manager::TAB_STYLE,
       ]
     );
 
 
-    $this->end_controls_section();
-
-    $this->start_controls_section(
-			'typography_section',
-			[
-				'label' => __( 'Typography and text settings', 'plugin-name' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
-			[
-        'label' => __( 'Title typography', 'plugin-domain' ),
-				'name' => 'title_typography',
-				'selector' => '{{WRAPPER}} .title',
-			]
-		);
-
     $this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
-			[
-        'label' => __( 'Description typography', 'plugin-domain' ),
-				'name' => 'desc_typography',
-				'selector' => '{{WRAPPER}} .description',
-			]
-		);
-
-    $this->add_control(
-    'title_color',
-    [
-      'label' => __( 'Title Color', 'plugin-domain' ),
-      'type' => \Elementor\Controls_Manager::COLOR,
-      'default' => '#000000',
-      'selectors' => [
-        '{{WRAPPER}} .title' => 'color: {{VALUE}}',
-      ],
-    ]
-  );
-
-    $this->end_controls_section();
-
-    $this->start_controls_section(
-			'border_section',
-			[
-				'label' => __( 'Grid item border', 'plugin-name' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-			]
-		);
-
-
-    $this->add_group_control(
-			\Elementor\Group_Control_Border::get_type(),
-			[
-				'name' => 'border',
-				'selector' => '{{WRAPPER}} .wrapper',
-			]
-		);
+      \Elementor\Group_Control_Border::get_type(),
+      [
+        'name' => 'border',
+        'selector' => '{{WRAPPER}} .wrapper',
+      ]
+    );
 
     $this->end_controls_section();
 
     $this->start_controls_section(
       'sizing_section',
       [
-        'label' => __( 'Paddings and margins', 'plugin-name' ),
+        'label' => __( 'Paddings and margins', 'elementor-awesomesauce' ),
         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
       ]
     );
 
     $this->add_responsive_control(
-    	'grid_item_padding',
-    	[
-    		'label' =>esc_html__( 'Grid item padding', 'digiqole' ),
-    		'type' => \Elementor\Controls_Manager::DIMENSIONS,
-    		'size_units' => [ 'px', 'em', '%' ],
-    		'selectors' => [
-    			'{{WRAPPER}} .wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-    		],
-    	]
-      );
-
-      $this->add_responsive_control(
-      	'grid_item_margin',
-      	[
-      		'label' =>esc_html__( 'Grid item margin', 'digiqole' ),
-      		'type' => \Elementor\Controls_Manager::DIMENSIONS,
-      		'size_units' => [ 'px', 'em', '%' ],
-      		'selectors' => [
-      			'{{WRAPPER}} .wrapper' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-      		],
-      	]
-        );
-
-        $this->add_control(
-        'grid_item_color',
-        [
-          'label' => __( 'Grid item color', 'plugin-domain' ),
-          'type' => \Elementor\Controls_Manager::COLOR,
-          // 'scheme' => [
-          //   'type' => \Elementor\Scheme_Color::get_type(),
-          //   'value' => \Elementor\Scheme_Color::COLOR_1,
-          // ],
-          'default' => '#ffffff',
-          'selectors' => [
-            '{{WRAPPER}} .wrapper' => 'background-color: {{VALUE}}',
-          ],
-        ]
-      );
+      'grid_item_padding',
+      [
+        'label' =>esc_html__( 'Grid item padding', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => [ 'px', 'em', '%' ],
+        'selectors' => [
+          '{{WRAPPER}} .wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        ],
+      ]
+    );
 
     $this->add_responsive_control(
-			'thumbnail_margin_bottom',
-			[
-				'label' => __( 'Thumbnail margin bottom', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'devices' => [ 'desktop', 'tablet', 'mobile' ],
-				'desktop_default' => [
-					'size' => 30,
-					'unit' => 'px',
-				],
-				'tablet_default' => [
-					'size' => 20,
-					'unit' => 'px',
-				],
-				'mobile_default' => [
-					'size' => 10,
-					'unit' => 'px',
-				],
-				'selectors' => [
-					'{{WRAPPER}} .widget-image' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+      'grid_item_column_gap',
+      [
+        'label' =>esc_html__( 'Grid item column gap (css grid)', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::NUMBER,
+        'default' => 15,
+        'selectors' => [
+          '{{WRAPPER}} .big-wrapper' => 'column-gap: {{VALUE}}px;',
+        ],
+      ]
+    );
 
-		$this->end_controls_section();
+    $this->add_responsive_control(
+      'grid_item_row_gap',
+      [
+        'label' =>esc_html__( 'Grid item row gap (css grid)', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::NUMBER,
+        'default' => 15,
+        'selectors' => [
+          '{{WRAPPER}} .big-wrapper' => 'row-gap: {{VALUE}}px;',
+        ],
+      ]
+    );
 
-    // $this->start_controls_section(
-    //   'style_section',
-    //   [
-    //     'label' => __( 'Style Section', 'plugin-name' ),
-    //     'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-    //   ]
-    // );
-    //
-    // $this->add_responsive_control(
-		// 	'grid_margin',
-		// 	[
-		// 		'label' =>esc_html__( 'margin', 'digiqole' ),
-		// 		'type' => \Elementor\Controls_Manager::DIMENSIONS,
-		// 		'size_units' => [ 'px', 'em', '%' ],
-		// 		'selectors' => [
-		// 			'{{WRAPPER}} .grid-item' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		// 		],
-		// 	]
-    //   );
-    //
-    // $this->end_controls_section();
+    $this->add_control(
+      'grid_item_color',
+      [
+        'label' => __( 'Grid item color', '' ),
+        'type' => \Elementor\Controls_Manager::COLOR,
+        // 'scheme' => [
+        //   'type' => \Elementor\Scheme_Color::get_type(),
+        //   'value' => \Elementor\Scheme_Color::COLOR_1,
+        // ],
+        'default' => '#ffffff',
+        'selectors' => [
+          '{{WRAPPER}} .wrapper' => 'background-color: {{VALUE}}',
+        ],
+      ]
+    );
+
+    $this->add_responsive_control(
+      'thumbnail_margin_bottom',
+      [
+        'label' => __( 'Thumbnail margin bottom', 'elementor-awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::SLIDER,
+        'range' => [
+          'px' => [
+            'min' => 0,
+            'max' => 100,
+          ],
+        ],
+        'devices' => [ 'desktop', 'tablet', 'mobile' ],
+        'desktop_default' => [
+          'size' => 30,
+          'unit' => 'px',
+        ],
+        'tablet_default' => [
+          'size' => 20,
+          'unit' => 'px',
+        ],
+        'mobile_default' => [
+          'size' => 10,
+          'unit' => 'px',
+        ],
+        'selectors' => [
+          '{{WRAPPER}} .widget-image' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+        ],
+      ]
+    );
+
+    $this->end_controls_section();
   }
 
   /**
@@ -535,9 +478,13 @@ class PostGrid extends Widget_Base {
   */
   protected function render() {
     $settings = $this->get_settings_for_display();
+    $show_title         = $settings['show_title'];
     $show_cat           = $settings['show_cat'];
     $show_date          = $settings['show_date'];
     $show_author         = $settings['show_author'];
+    $show_views         = $settings['show_views'];
+    $show_comments         = $settings['show_comments'];
+    $show_tags        = $settings['show_tags'];
     $number_of_columns_phone = $settings['number_of_columns_phone'];
     $number_of_columns_tablet = $settings['posts_per_page'];
     $number_of_columns_desktop = $settings['number_of_columns_desktop'];
@@ -545,8 +492,6 @@ class PostGrid extends Widget_Base {
     $post_content_crop	= (isset($settings['post_content_crop'])) ? $settings['post_content_crop'] : 50;
 
     $this->add_inline_editing_attributes( 'title', 'none' );
-    // $this->add_inline_editing_attributes( 'order_by', 'advanced' );
-    // $this->add_inline_editing_attributes( 'post_count', 'advanced' );
     ?>
     <?php
     $arg = [
@@ -554,95 +499,98 @@ class PostGrid extends Widget_Base {
       'post_status' => 'publish',
       'orderby' => $settings['order_by'],
       'posts_per_page' => $settings['post_count'],
-      // 'category__in' => $settings['post_categories'],
-      // 'tag' => 'family, games, fun',
-      // 'tag' => $settings['post_tags'],
       'meta_key'    => 'number_of_views',
       'order' => $settings['order'],
     ];
 
     if($settings['post_pick_by']=='stickypost'){
-           $arg['post__in'] = get_option( 'sticky_posts' );
-           $arg['ignore_sticky_posts'] = 1;
-        }
+      $arg['post__in'] = get_option( 'sticky_posts' );
+      $arg['ignore_sticky_posts'] = 1;
+    }
 
-        if($settings['post_pick_by']=='category') {
-           $arg['category__in'] = $settings['post_categories'];
-        }
+    if($settings['post_pick_by']=='category') {
+      $arg['category__in'] = $settings['post_categories'];
+    }
 
-        if($settings['post_pick_by']=='tags') {
-           $arg['tag__in'] = $settings['post_tags'];
-        }
+    if($settings['post_pick_by']=='tags') {
+      $arg['tag__in'] = $settings['post_tags'];
+    }
 
-        if($settings['post_pick_by']=='post') {
-           $digiqole_posts = explode(',',$settings['post_id']);
-           $arg['post__in'] = $digiqole_posts;
-           $arg['posts_per_page'] = count($digiqole_posts);
-        }
+    if($settings['post_pick_by']=='post') {
+      $elementor_awesomesauce_posts = explode(',',$settings['post_id']);
+      $arg['post__in'] = $elementor_awesomesauce_posts;
+      $arg['posts_per_page'] = count($elementor_awesomesauce_posts);
+    }
 
-        if($settings['post_pick_by']=='author') {
-         $digiqole_authors = explode(',',$settings['author_id']);
-         $arg['author__in'] = $digiqole_authors;
-        }
+    if($settings['post_pick_by']=='author') {
+      $elementor_awesomesauce_authors = explode(',',$settings['author_id']);
+      $arg['author__in'] = $elementor_awesomesauce_authors;
+    }
 
     $queryd = new \WP_Query( $arg );
     if ( $queryd->have_posts() ) : ?>
     <div class="row">
-      <div class="col-12">
-        <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-        <p><?php echo get_field('number_of_views'); ?></p>
-        <h3>
-          <?php $allTags = $settings['post_tags'];
-          foreach ($allTags as $oneTag) {
-            $theTag = get_term_by($oneTag, 'term_id', 'tags');
-            echo $oneTag->name;
-          }
-          ?>
-        </h3>
-      </div>
-      <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
-        <div class="col-<?php echo $number_of_columns_phone ?> col-md-<?php echo $number_of_columns_tablet ?> col-lg-<?php echo $number_of_columns_desktop ?>">
-          <!-- <h6><?php echo get_the_title(); ?></h6> -->
+      <?php if($show_title) { ?>
+        <div class="col-12">
+          <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+        </div>
+      <?php }  ?>
+      <div class="big-wrapper" style="display:grid;">
+        <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
           <div class="wrapper">
-          <?php if ( has_post_thumbnail() ) : ?>
-            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="widget-image d-block">
-              <?php the_post_thumbnail('featured-small', ['class' => 'img-fluid', 'title' => 'Feature image']); ?>
-            </a>
-          <?php endif; ?>
-          <div class="views">
-            <?php echo get_field('number_of_views'); ?>
-          </div>
-          <p style="color:blue">
-            <?php the_tags(); ?>
-          </p>
-          <div class="category">
-            <?php if($show_cat) {
-              the_category();
-            }
-            ?>
-          </div>
-          <div class="date">
-            <?php if($show_date) {
-              the_date( 'F j, Y' );
-            }
-            ?>
-          </div>
-          <div class="author">
-            <?php if($show_author) {?>
-              <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" class="author-avatar">
-                <?php echo get_avatar( get_the_author_meta( 'ID' ), 40); ?>
+            <?php if ( has_post_thumbnail() ) : ?>
+              <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="widget-image d-block">
+                <?php the_post_thumbnail('featured-small', ['class' => 'img-fluid', 'title' => 'Feature image']); ?>
               </a>
-              <span>by <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>"><?php the_author(); ?></a></span>
+            <?php endif; ?>
+
+            <?php if($show_comments) { ?>
+              <div class="comments">
+                <?php  echo get_comments_number(); ?>
+              </div>
+            <?php }  ?>
+            <?php if($show_views) { ?>
+              <div class="views">
+                <?php  echo get_field('number_of_views'); ?>
+              </div>
+            <?php }  ?>
+
+            <?php if($show_tags) { ?>
+              <div class="tags">
+                <?php  the_tags(); ?>
+              </div>
+            <?php }  ?>
+
+            <?php if($show_cat) { ?>
+              <div class="category">
+                <?php the_category(); ?>
+              </div>
+            <?php }  ?>
+
+            <?php if($show_date) { ?>
+              <div class="date">
+                <?php the_date( 'F j, Y' ); ?>
+              </div>
+            <?php }  ?>
+
+            <?php if($show_author) {?>
+              <div class="author">
+                <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" class="author-avatar">
+                  <?php echo get_avatar( get_the_author_meta( 'ID' ), 40); ?>
+                </a>
+                <span>by <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>"><?php the_author(); ?></a></span>
+              </div>
+            <?php } ?>
+
+            <h2 class="title"><?php echo esc_html(wp_trim_words(get_the_title(), $crop,'')); ?></h2>
+
+            <?php if($settings['show_excerpt']) {?>
+              <p><?php echo esc_html( wp_trim_words(get_the_excerpt(),$settings['post_content_crop'],'...') );?></p>
             <?php } ?>
           </div>
-          <!-- <?php the_title( sprintf( '<h4 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' ); ?> -->
-          <h2 class="title"><?php echo esc_html(wp_trim_words(get_the_title(), $crop,'')); ?></h2>
-          <?php if($settings['show_excerpt']) {?>
-          <p><?php echo esc_html( wp_trim_words(get_the_excerpt(),$settings['post_content_crop'],'...') );?></p>
-          <?php } ?>
-        </div>
-        </div>
-      <?php endwhile; ?>
+          <!-- </div> -->
+        <?php endwhile; ?>
+      </div>
       <?php wp_reset_postdata(); ?>
     </div>
   <?php endif; ?>
@@ -668,7 +616,7 @@ public function post_category() {
   return $cat_list;
 }
 
-function digiqole_post_tags(){
+function elementor_awesomesauce_post_tags(){
   $terms = get_terms( array(
     'taxonomy'    => 'post_tag',
     'hide_empty'  => false,
@@ -682,13 +630,13 @@ function digiqole_post_tags(){
   return $cat_list;
 }
 
-function digiqole_post_authors(){
+function elementor_awesomesauce_post_authors(){
   $terms = wp_list_authors( array(
-      'show_fullname' => 1,
-      'optioncount'   => 1,
-      'html'          => false,
-      'orderby'       => 'post_count',
-      'order'         => 'DESC',
+    'show_fullname' => 1,
+    'optioncount'   => 1,
+    'html'          => false,
+    'orderby'       => 'post_count',
+    'order'         => 'DESC',
   ) );
 
   $cat_list = [];
