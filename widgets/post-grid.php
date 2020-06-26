@@ -173,7 +173,7 @@ class PostGrid extends Widget_Base {
         'options'   => [
           'category'      =>esc_html__( 'Category', 'elementor_awesomesauce' ),
           'tags'      =>esc_html__( 'Tags', 'elementor_awesomesauce' ),
-          // 'stickypost'    =>esc_html__( 'Sticky posts', 'elementor_awesomesauce' ),
+          'stickypost'    =>esc_html__( 'Sticky posts', 'elementor_awesomesauce' ),
           'post'    =>esc_html__( 'Post id', 'elementor_awesomesauce' ),
           'author'    =>esc_html__( 'Author', 'elementor_awesomesauce' ),
         ],
