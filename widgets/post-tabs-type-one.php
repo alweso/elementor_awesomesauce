@@ -95,6 +95,38 @@ protected function _register_controls() {
   );
 
   $this->add_control(
+    'post_title_crop',
+    [
+      'label'         => esc_html__( 'Post Title limit', 'elementor_awesomesauce' ),
+      'type'          => Controls_Manager::NUMBER,
+      'default' => '35',
+
+    ]
+  );
+
+  $this->add_control(
+    'show_excerpt',
+    [
+      'label' => esc_html__('Show Description', 'elementor_awesomesauce'),
+      'type' => Controls_Manager::SWITCHER,
+      'label_on' => esc_html__('yes', 'elementor_awesomesauce'),
+      'label_off' => esc_html__('no', 'elementor_awesomesauce'),
+      'default' => 'No',
+    ]
+  );
+
+  $this->add_control(
+    'post_content_crop',
+    [
+      'label'         => esc_html__( 'Post Exerpt limit', 'elementor_awesomesauce' ),
+      'type'          => Controls_Manager::NUMBER,
+      'default' => '30',
+      'condition' => [ 'show_excerpt' => ['yes'] ]
+
+    ]
+  );
+
+  $this->add_control(
     'post_count',
     [
       'label' => __( 'Post count', 'elementor-awesomesauce' ),
@@ -134,7 +166,7 @@ protected function _register_controls() {
           'label_block' => true,
           'multiple' => true,
         ],
-        [   
+        [
           'name' => 'tab_title',
           'label'         => esc_html__( 'Tab title', 'elementor-awesomesauce' ),
           'type'          => Controls_Manager::TEXT,
@@ -147,6 +179,8 @@ protected function _register_controls() {
 
 
   $this->end_controls_section();
+
+
 }
 
 /**
@@ -176,7 +210,7 @@ protected function render() {
         } else {
           echo '<a id="nav-'.$this->get_id().$value['_id'].'-tab" class="nav-link" href="#nav-'.$this->get_id().$value['_id'].'" data-toggle="tab" aria-controls="nav-'.$this->get_id().$value['_id'].'" aria-selected="false">'.$value['tab_title'].'</a>';
         }
-      }?> 
+      }?>
     </div>
   </nav>
 
@@ -221,8 +255,8 @@ protected function render() {
               <?php } ?>
                 </div>
               <?php endif ?>
-            <?php endwhile; 
-            wp_reset_postdata(); 
+            <?php endwhile;
+            wp_reset_postdata();
             $i = 0;?>
           </div>
         <?php endif; ?>
@@ -241,7 +275,7 @@ protected function render() {
     $terms = get_terms( array(
       'taxonomy'    => 'category',
       'hide_empty'  => false,
-      'posts_per_page' => -1, 
+      'posts_per_page' => -1,
       'suppress_filters' => false,
     ) );
 
