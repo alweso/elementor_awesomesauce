@@ -359,7 +359,7 @@ class PostList extends Widget_Base {
     $this->start_controls_section(
       'sizing_section',
       [
-        'label' => __( 'Paddings and margins', 'elementor-awesomesauce' ),
+        'label' => __( 'Paddings, margins and background', 'elementor-awesomesauce' ),
         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
       ]
     );
@@ -404,35 +404,6 @@ class PostList extends Widget_Base {
       ]
     );
 
-    $this->add_responsive_control(
-      'thumbnail_margin_bottom',
-      [
-        'label' => __( 'Thumbnail margin bottom', 'elementor-awesomesauce' ),
-        'type' => \Elementor\Controls_Manager::SLIDER,
-        'range' => [
-          'px' => [
-            'min' => 0,
-            'max' => 100,
-          ],
-        ],
-        'devices' => [ 'desktop', 'tablet', 'mobile' ],
-        'desktop_default' => [
-          'size' => 30,
-          'unit' => 'px',
-        ],
-        'tablet_default' => [
-          'size' => 20,
-          'unit' => 'px',
-        ],
-        'mobile_default' => [
-          'size' => 10,
-          'unit' => 'px',
-        ],
-        'selectors' => [
-          '{{WRAPPER}} .widget-image' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-        ],
-      ]
-    );
 
     $this->end_controls_section();
   }
@@ -496,7 +467,7 @@ class PostList extends Widget_Base {
 
     $queryd = new \WP_Query( $arg );
     if ( $queryd->have_posts() ) : ?>
-    <div class="row">
+    <!-- <div class="row"> -->
       <?php if($show_title) { ?>
         <div class="col-12">
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
@@ -504,7 +475,7 @@ class PostList extends Widget_Base {
       <?php }  ?>
       <div class="big-wrapper">
         <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
-          <div class="wrapper" style="display:grid;grid-template-columns:1fr 3fr;grid-column-gap:15px;">
+          <div class="wrapper" style="display:grid;grid-template-columns:1fr 2fr;grid-column-gap:15px;">
             <?php if ( has_post_thumbnail() ) : ?>
               <div class="thumbnail">
               <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="widget-image d-block">
@@ -567,7 +538,7 @@ class PostList extends Widget_Base {
         <?php endwhile; ?>
       </div>
       <?php wp_reset_postdata(); ?>
-    </div>
+    <!-- </div> -->
   <?php endif; ?>
 <?php }
 

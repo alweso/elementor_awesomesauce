@@ -377,7 +377,7 @@ class PostGrid extends Widget_Base {
     $this->start_controls_section(
       'sizing_section',
       [
-        'label' => __( 'Paddings and margins', 'elementor-awesomesauce' ),
+        'label' => __( 'Paddings, margins and background', 'elementor-awesomesauce' ),
         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
       ]
     );
@@ -529,7 +529,7 @@ class PostGrid extends Widget_Base {
 
     $queryd = new \WP_Query( $arg );
     if ( $queryd->have_posts() ) : ?>
-    <div class="row">
+    <!-- <div class="row"> -->
       <?php if($show_title) { ?>
         <div class="col-12">
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
@@ -592,7 +592,7 @@ class PostGrid extends Widget_Base {
         <?php endwhile; ?>
       </div>
       <?php wp_reset_postdata(); ?>
-    </div>
+    <!-- </div> -->
   <?php endif; ?>
 <?php }
 
