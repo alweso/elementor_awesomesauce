@@ -69,6 +69,7 @@ class Plugin {
     require_once( __DIR__ . '/widgets/featured-posts-2.php' );
     require_once( __DIR__ . '/widgets/featured-gallery.php' );
     require_once( __DIR__ . '/widgets/post-list.php' );
+    require_once( __DIR__ . '/widgets/post-carousel.php' );
   }
 
   /**
@@ -94,6 +95,7 @@ class Plugin {
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedPosts2() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedGallery() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostList() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostCarousel() );
 
   }
 

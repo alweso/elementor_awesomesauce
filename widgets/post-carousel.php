@@ -9,7 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
 * @since 1.1.0
 */
-class PostGrid extends Widget_Base {
+class PostCarousel extends Widget_Base {
+
 
   /**
   * Retrieve the widget name.
@@ -21,7 +22,7 @@ class PostGrid extends Widget_Base {
   * @return string Widget name.
   */
   public function get_name() {
-    return 'post-grid';
+    return 'post-carousel';
   }
 
   /**
@@ -34,7 +35,7 @@ class PostGrid extends Widget_Base {
   * @return string Widget title.
   */
   public function get_title() {
-    return __( 'Post Grid', 'elementor-post-grid' );
+    return __( 'Post Carousel', 'elementor-post-carousel' );
   }
 
   /**
@@ -77,6 +78,19 @@ class PostGrid extends Widget_Base {
   *
   * @access protected
   */
+
+  public function __construct($data = [], $args = null) {
+    parent::__construct($data, $args);
+
+    // wp_register_script( 'script-handle', '/awesomesauce.js', [ 'elementor-frontend' ], '1.0.0', true );
+    wp_register_script( 'script-handle', plugins_url( "elementor-awesomesauce/widgets/awesomesauce.js"), [ 'elementor-frontend' ], '1.0.0', true );
+ }
+
+public function get_script_depends() {
+   return [ 'script-handle' ];
+}
+
+
   protected function _register_controls() {
     $this->start_controls_section(
       'section_content',
@@ -313,6 +327,69 @@ class PostGrid extends Widget_Base {
       ]
     );
 
+
+
+
+    $this->add_control(
+         'post_show',
+         [
+           'label'         => esc_html__( 'Post show', 'digiqole' ),
+           'type'          => Controls_Manager::NUMBER,
+           'default'       => 5,
+         ]
+       );
+
+
+        $this->add_control(
+         'digiqole_slider_autoplay',
+             [
+             'label' => esc_html__( 'Autoplay', 'digiqole' ),
+             'type' => \Elementor\Controls_Manager::SWITCHER,
+             'label_on' => esc_html__( 'Yes', 'digiqole' ),
+             'label_off' => esc_html__( 'No', 'digiqole' ),
+             'return_value' => 'yes',
+             'default' => 'no'
+             ]
+         );
+
+
+      $this->add_control(
+          'digiqole_slider_dot_nav_show',
+              [
+              'label' => esc_html__( 'Dot Nav', 'digiqole' ),
+              'type' => \Elementor\Controls_Manager::SWITCHER,
+              'label_on' => esc_html__( 'Yes', 'digiqole' ),
+              'label_off' => esc_html__( 'No', 'digiqole' ),
+              'return_value' => 'yes',
+              'default' => 'yes'
+              ]
+      );
+
+
+      $this->add_control(
+         'digiqole_slider_nav_show',
+             [
+             'label' => esc_html__( 'Nav', 'digiqole' ),
+             'type' => \Elementor\Controls_Manager::SWITCHER,
+             'label_on' => esc_html__( 'Yes', 'digiqole' ),
+             'label_off' => esc_html__( 'No', 'digiqole' ),
+             'return_value' => 'yes',
+             'default' => 'yes'
+             ]
+     );
+
+
+      $this->add_control(
+         'nav_top',
+         [
+             'label' => esc_html__('Nav top', 'digiqole'),
+             'type' => Controls_Manager::SWITCHER,
+             'label_on' => esc_html__('Yes', 'digiqole'),
+             'label_off' => esc_html__('No', 'digiqole'),
+             'default' => 'no',
+         ]
+      );
+
     $this->end_controls_section();
 
     $this->start_controls_section(
@@ -478,18 +555,28 @@ class PostGrid extends Widget_Base {
   */
   protected function render() {
     $settings = $this->get_settings_for_display();
-    $show_title         = $settings['show_title'];
-    $show_cat           = $settings['show_cat'];
-    $show_date          = $settings['show_date'];
-    $show_author         = $settings['show_author'];
-    $show_views         = $settings['show_views'];
-    $show_comments         = $settings['show_comments'];
+    $show_title       = $settings['show_title'];
+    $show_cat         = $settings['show_cat'];
+    $show_date        = $settings['show_date'];
+    $show_author      = $settings['show_author'];
+    $show_views       = $settings['show_views'];
+    $show_comments    = $settings['show_comments'];
     $show_tags        = $settings['show_tags'];
     $number_of_columns_phone = $settings['number_of_columns_phone'];
     $number_of_columns_tablet = $settings['posts_per_page'];
     $number_of_columns_desktop = $settings['number_of_columns_desktop'];
     $crop	= (isset($settings['post_title_crop'])) ? $settings['post_title_crop'] : 20;
     $post_content_crop	= (isset($settings['post_content_crop'])) ? $settings['post_content_crop'] : 50;
+
+    $slide_controls    = [
+
+       'dot_nav_show' => $settings['digiqole_slider_dot_nav_show'],
+       'nav_show' => $settings['digiqole_slider_nav_show'],
+       'auto_nav_slide' => $settings['digiqole_slider_autoplay'],
+       'item_count' => $settings['post_show'],
+     ];
+
+     $slide_controls = \json_encode($slide_controls);
 
     $this->add_inline_editing_attributes( 'title', 'none' );
     ?>
@@ -535,7 +622,7 @@ class PostGrid extends Widget_Base {
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
         </div>
       <?php }  ?>
-      <div class="big-wrapper" style="display:grid;">
+      <div class="post-slider <?php echo esc_attr($nav_top); ?>  owl-carousel ">
         <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
           <div class="wrapper">
             <?php if ( has_post_thumbnail() ) : ?>
@@ -583,6 +670,7 @@ class PostGrid extends Widget_Base {
             <?php } ?>
 
             <h2 class="title"><?php echo esc_html(wp_trim_words(get_the_title(), $crop,'')); ?></h2>
+
             <?php if($settings['show_excerpt']) {?>
               <p><?php echo esc_html( wp_trim_words(get_the_excerpt(),$settings['post_content_crop'],'...') );?></p>
             <?php } ?>

@@ -473,8 +473,6 @@ protected function render() {
     </div>
   </nav>
 
-
-
   <div class="tab-content" id="nav-tabContent">
     <?php foreach ($tabs as $content_key=>$value) {
       if( $content_key == 0){
@@ -482,7 +480,6 @@ protected function render() {
       } else {
         echo '<div class="tab-pane fade" role="tabpanel" id="nav-'.$this->get_id().$value['_id'].'"aria-labelledby="nav-'.$this->get_id().$value['_id'].'-tab">';
       }
-      ?><div class="row"><?php
 
       $arg = array(
       'post_type'   =>  'post',
@@ -494,16 +491,11 @@ protected function render() {
         'order' => $settings['order'],
       );
 
-
-
-
       $queryd = new \WP_Query( $arg );
       if ( $queryd->have_posts() ) : ?>
       <!-- <div class="row"> -->
         <?php if($show_title) { ?>
-          <div class="col-12">
             <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-          </div>
         <?php }  ?>
         <div class="big-wrapper" style="display:grid;">
           <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
@@ -564,9 +556,6 @@ protected function render() {
         <?php wp_reset_postdata(); ?>
       <!-- </div> -->
     <?php endif; ?>
-
-
-      </div>
     </div>
   <?php } ?>
 </div>
