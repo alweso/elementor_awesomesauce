@@ -622,7 +622,7 @@ public function get_script_depends() {
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
         </div>
       <?php }  ?>
-      <div class="post-slider <?php echo esc_attr($nav_top); ?>  owl-carousel ">
+      <div data-controls="<?php echo esc_attr($slide_controls); ?>" class="post-slider <?php echo esc_attr($nav_top); ?>  owl-carousel ">
         <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
           <div class="wrapper">
             <?php if ( has_post_thumbnail() ) : ?>

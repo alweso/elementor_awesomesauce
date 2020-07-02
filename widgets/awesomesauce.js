@@ -21,7 +21,7 @@ class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
         return {
             selectors: {
                 firstSelector: '.owl-carousel',
-                secondSelector: '.big-wrapper',
+                secondSelector: '.post-slider',
             },
         };
     }
@@ -35,7 +35,46 @@ class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
     }
 
     bindEvents() {
-        this.elements.$firstSelector.owlCarousel();
+        // this.elements.$firstSelector.owlCarousel();
+        this.elements.$firstSelector.on('load', this.blabla());
+    }
+
+    blabla() {
+      const controls = JSON.parse(this.elements.$secondSelector.attr('data-controls'));
+      const autoslide = Boolean(controls.auto_nav_slide?true:false);
+      const dot_nav = Boolean(controls.dot_nav_show?true:false);
+      const item_count = parseInt( controls.item_count );
+
+      if (this.elements.$secondSelector.length > 0) {
+                     this.elements.$secondSelector.owlCarousel({
+                        items: item_count,
+                        loop: true,
+                        autoplay: autoslide,
+                        nav: false,
+                        dots: dot_nav,
+                        autoplayTimeout: 8000,
+                        autoplayHoverPause: false,
+                        mouseDrag: true,
+                        smartSpeed: 1100,
+                        margin:30,
+                        navText: ["<i class='icon icon-arrow-left'></i>", "<i class='icon icon-arrow-right'></i>"],
+                        responsive: {
+                           0: {
+                              items: 1,
+                           },
+                           600: {
+                              items: 2,
+                           },
+                           1000: {
+                              items: 3,
+                           },
+                           1200: {
+                              items:item_count,
+                           }
+                        }
+
+                     });
+               }
     }
 
    //  onFirstSelectorClick( event ) {
@@ -44,6 +83,11 @@ class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
    //      this.elements.$secondSelector.show();
    // }
 }
+
+//
+// export default ( $scope ) => {
+// 	elementorFrontend.elementsHandler.addHandler( VideoModule, { $element: $scope } );
+// };
 
 jQuery( window ).on( 'elementor/frontend/init', () => {
    const addHandler = ( $element ) => {
