@@ -184,6 +184,7 @@ class VideoPlaylist extends Widget_Base {
             'post_type' => 'post',
             'posts_per_page' => $settings['post_count'],
             'meta_key'    => 'video_link',
+            'ignore_sticky_posts' => 1,
             'terms' => array(
                 'post-format-video',
             ),
