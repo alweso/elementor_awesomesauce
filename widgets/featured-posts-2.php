@@ -65,7 +65,7 @@ public function get_icon() {
 * @return array Widget categories.
 */
 public function get_categories() {
-  return [ 'general' ];
+  return ['general', 'test-category'];
 }
 
 /**
@@ -163,12 +163,12 @@ protected function render() {
               <span class="post-date"> <i class="fa fa-clock-o"></i> <?php echo get_the_date(get_option('date_format')); ?></span>
             <?php } ?>
           </div>
-        <?php endwhile; 
-        wp_reset_postdata(); 
+        <?php endwhile;
+        wp_reset_postdata();
         $i = 0;?>
       </div>
       <?php endif; ?>
-    </div> 
+    </div>
   <?php }
 
   protected function _content_template() {
@@ -180,7 +180,7 @@ protected function render() {
     $terms = get_terms( array(
       'taxonomy'    => 'category',
       'hide_empty'  => false,
-      'posts_per_page' => $post_count, 
+      'posts_per_page' => $post_count,
       'suppress_filters' => false,
     ) );
 

@@ -65,7 +65,7 @@ public function get_icon() {
 * @return array Widget categories.
 */
 public function get_categories() {
-  return [ 'general' ];
+  return ['general', 'test-category'];
 }
 
 /**
@@ -134,7 +134,7 @@ protected function _register_controls() {
           'label_block' => true,
           'multiple' => true,
         ],
-        [   
+        [
           'name' => 'tab_title',
           'label'         => esc_html__( 'Tab title', 'elementor-awesomesauce' ),
           'type'          => Controls_Manager::TEXT,
@@ -170,7 +170,7 @@ protected function render() {
     $terms = get_terms( array(
       'taxonomy'    => 'category',
       'hide_empty'  => false,
-      'posts_per_page' => -1, 
+      'posts_per_page' => -1,
       'suppress_filters' => false,
     ) );
 

@@ -66,8 +66,8 @@ class PostCarousel extends Widget_Base {
   * @return array Widget categories.
   */
   public function get_categories() {
-    return [ 'general' ];
-  }
+		return ['general', 'test-category'];
+	}
 
   /**
   * Register the widget controls.

@@ -8,9 +8,9 @@
  * Author URI:  https://benmarshall.me
  * Text Domain: elementor-awesomesauce
  */
- 
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
- 
+
 /**
  * Main Elementor Awesomesauce Class
  *
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @since 1.0.0
  */
 final class Elementor_Awesomesauce {
- 
+
   /**
    * Plugin Version
    *
@@ -31,7 +31,7 @@ final class Elementor_Awesomesauce {
    * @var string The plugin version.
    */
   const VERSION = '1.0.0';
- 
+
   /**
    * Minimum Elementor Version
    *
@@ -39,7 +39,7 @@ final class Elementor_Awesomesauce {
    * @var string Minimum Elementor version required to run the plugin.
    */
   const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
- 
+
   /**
    * Minimum PHP Version
    *
@@ -47,7 +47,7 @@ final class Elementor_Awesomesauce {
    * @var string Minimum PHP version required to run the plugin.
    */
   const MINIMUM_PHP_VERSION = '7.0';
- 
+
   /**
    * Constructor
    *
@@ -55,14 +55,14 @@ final class Elementor_Awesomesauce {
    * @access public
    */
   public function __construct() {
- 
+
     // Load translation
     add_action( 'init', array( $this, 'i18n' ) );
- 
+
     // Init Plugin
     add_action( 'plugins_loaded', array( $this, 'init' ) );
   }
- 
+
   /**
    * Load Textdomain
    *
@@ -75,7 +75,7 @@ final class Elementor_Awesomesauce {
   public function i18n() {
     load_plugin_textdomain( 'elementor-awesomesauce' );
   }
- 
+
   /**
    * Initialize the plugin
    *
@@ -89,29 +89,32 @@ final class Elementor_Awesomesauce {
    * @access public
    */
   public function init() {
- 
+
     // Check if Elementor installed and activated
     if ( ! did_action( 'elementor/loaded' ) ) {
       add_action( 'admin_notices', array( $this, 'admin_notice_missing_main_plugin' ) );
       return;
     }
- 
+
     // Check for required Elementor version
     if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
       add_action( 'admin_notices', array( $this, 'admin_notice_minimum_elementor_version' ) );
       return;
     }
- 
+
     // Check for required PHP version
     if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
       add_action( 'admin_notices', array( $this, 'admin_notice_minimum_php_version' ) );
       return;
     }
- 
+
+    //Add action for registering widgets categories
+      	add_action("elementor/elements/categories_registered",[ $this, "register_new_category"]);   
+
     // Once we get here, We have passed all validation checks so we can safely include our plugin
     require_once( 'plugin.php' );
   }
- 
+
   /**
    * Admin notice
    *
@@ -124,17 +127,17 @@ final class Elementor_Awesomesauce {
     if ( isset( $_GET['activate'] ) ) {
       unset( $_GET['activate'] );
     }
- 
+
     $message = sprintf(
       /* translators: 1: Plugin name 2: Elementor */
       esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'elementor-awesomesauce' ),
       '<strong>' . esc_html__( 'Elementor Awesomesauce', 'elementor-awesomesauce' ) . '</strong>',
       '<strong>' . esc_html__( 'Elementor', 'elementor-awesomesauce' ) . '</strong>'
     );
- 
+
     printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
   }
- 
+
   /**
    * Admin notice
    *
@@ -147,7 +150,7 @@ final class Elementor_Awesomesauce {
     if ( isset( $_GET['activate'] ) ) {
       unset( $_GET['activate'] );
     }
- 
+
     $message = sprintf(
       /* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
       esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-awesomesauce' ),
@@ -155,10 +158,10 @@ final class Elementor_Awesomesauce {
       '<strong>' . esc_html__( 'Elementor', 'elementor-awesomesauce' ) . '</strong>',
       self::MINIMUM_ELEMENTOR_VERSION
     );
- 
+
     printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
   }
- 
+
   /**
    * Admin notice
    *
@@ -171,7 +174,7 @@ final class Elementor_Awesomesauce {
     if ( isset( $_GET['activate'] ) ) {
       unset( $_GET['activate'] );
     }
- 
+
     $message = sprintf(
       /* translators: 1: Plugin name 2: PHP 3: Required PHP version */
       esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-awesomesauce' ),
@@ -179,10 +182,22 @@ final class Elementor_Awesomesauce {
       '<strong>' . esc_html__( 'PHP', 'elementor-awesomesauce' ) . '</strong>',
       self::MINIMUM_PHP_VERSION
     );
- 
+
     printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
   }
+
+  function register_new_category( $elements_manager ) {
+
+      $elements_manager->add_category(
+        'test-category',
+        [
+          'title' => __( 'Awesomesauce Category', 'awesomesauce' ),
+          'icon' => 'fa fa-plug',
+        ]
+      );
+
+    }
 }
- 
+
 // Instantiate Elementor_Awesomesauce.
 new Elementor_Awesomesauce();

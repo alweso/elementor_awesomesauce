@@ -65,7 +65,7 @@ public function get_icon() {
 * @return array Widget categories.
 */
 public function get_categories() {
-  return [ 'general' ];
+  return ['general', 'test-category'];
 }
 
 /**

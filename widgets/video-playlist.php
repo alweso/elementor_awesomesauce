@@ -64,9 +64,9 @@ class VideoPlaylist extends Widget_Base {
    *
    * @return array Widget categories.
    */
-  public function get_categories() {
-    return [ 'general' ];
-  }
+   public function get_categories() {
+ 		return ['general', 'test-category'];
+ 	}
 
   /**
    * Register the widget controls.
@@ -175,7 +175,7 @@ class VideoPlaylist extends Widget_Base {
     <div class="vid-main-wrapper clearfix">
 
       <!-- THE YOUTUBE PLAYER -->
-      
+
 
       <!-- THE PLAYLIST -->
       <div class="vid-list-container" style="background: #fff;padding: 10px;">
@@ -184,7 +184,7 @@ class VideoPlaylist extends Widget_Base {
             'post_type' => 'post',
             'posts_per_page' => $settings['post_count'],
             'meta_key'    => 'video_link',
-            'terms' => array( 
+            'terms' => array(
                 'post-format-video',
             ),
           );
@@ -213,7 +213,7 @@ class VideoPlaylist extends Widget_Base {
  ?></h6>
                     <p class="video_link" style="display: none;"><?php the_field("video_link"); ?></p>
                   </li>
-                  <?php else : 
+                  <?php else :
                      $new = str_replace("https://youtu.be/", '',  get_field('video_link')); ?>
                    <li style="background: #efefef;padding:10px;margin-bottom: 10px;">
                                         <p><?php the_title() ?></p>
@@ -227,20 +227,19 @@ class VideoPlaylist extends Widget_Base {
                     <p class="video_link" style="display: none;"><?php the_field("video_link"); ?></p>
                   </li>
                 <?php endif ?>
-                
+
               <?php wp_reset_postdata(); ?>
-            <?php }} 
+            <?php }}
             wp_reset_postdata();?>
             <?php $i = 0;?>
           </ol>
-        </div>   
+        </div>
       </div>
 
-    <?php } 
+    <?php }
 
 
     protected function _content_template() {
 
     }
   }
-

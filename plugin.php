@@ -50,6 +50,8 @@ class Plugin {
     wp_register_script( 'elementor-awesomesauce', plugins_url( '/assets/js/awesomesauce.js', __FILE__ ), [ 'jquery' ], false, true );
   }
 
+  
+
   /**
    * Include Widgets files
    *
