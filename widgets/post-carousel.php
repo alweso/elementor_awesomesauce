@@ -239,15 +239,6 @@ public function get_script_depends() {
     );
 
     $this->add_control(
-      'post_count',
-      [
-        'label' => __( 'Post count', 'elementor-awesomesauce' ),
-        'type' => Controls_Manager::NUMBER,
-        'default' => __( 4, 'elementor-awesomesauce' ),
-      ]
-    );
-
-    $this->add_control(
       'show_date',
       [
         'label' => esc_html__('Show Date', 'elementor_awesomesauce'),
@@ -309,26 +300,25 @@ public function get_script_depends() {
       ]
     );
 
-    $this->add_responsive_control(
-      'number_of_columns',
+      // $this->add_control(
+      //    'nav_top',
+      //    [
+      //        'label' => esc_html__('Nav top', 'digiqole'),
+      //        'type' => Controls_Manager::SWITCHER,
+      //        'label_on' => esc_html__('Yes', 'digiqole'),
+      //        'label_off' => esc_html__('No', 'digiqole'),
+      //        'default' => 'no',
+      //    ]
+      // );
+
+    $this->end_controls_section();
+    $this->start_controls_section(
+      'slider_settings_section',
       [
-        'label' => __( 'Number of columns', 'elementor-awesomesauce' ),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'options' => [
-          '1fr'  => __( '1', 'elementor-awesomesauce' ),
-          '1fr 1fr'  => __( '2', 'elementor-awesomesauce' ),
-          '1fr 1fr 1fr'  => __( '3', 'elementor-awesomesauce' ),
-          '1fr 1fr 1fr 1fr'  => __( '4', 'elementor-awesomesauce' ),
-        ],
-        'devices' => [ 'desktop', 'tablet', 'mobile' ],
-        'selectors' => [
-          '{{WRAPPER}} .big-wrapper' => 'grid-template-columns: {{VALUE}};',
-        ],
+        'label' => __( 'Slider settings', 'elementor-awesomesauce' ),
+        'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
       ]
     );
-
-
-
 
     $this->add_control(
          'post_show',
@@ -338,7 +328,6 @@ public function get_script_depends() {
            'default'       => 5,
          ]
        );
-
 
         $this->add_control(
          'digiqole_slider_autoplay',
@@ -351,7 +340,6 @@ public function get_script_depends() {
              'default' => 'no'
              ]
          );
-
 
       $this->add_control(
           'digiqole_slider_dot_nav_show',
@@ -378,19 +366,7 @@ public function get_script_depends() {
              ]
      );
 
-
-      $this->add_control(
-         'nav_top',
-         [
-             'label' => esc_html__('Nav top', 'digiqole'),
-             'type' => Controls_Manager::SWITCHER,
-             'label_on' => esc_html__('Yes', 'digiqole'),
-             'label_off' => esc_html__('No', 'digiqole'),
-             'default' => 'no',
-         ]
-      );
-
-    $this->end_controls_section();
+  $this->end_controls_section();
 
     $this->start_controls_section(
       'typography_section',
@@ -500,10 +476,6 @@ public function get_script_depends() {
       [
         'label' => __( 'Grid item color', '' ),
         'type' => \Elementor\Controls_Manager::COLOR,
-        // 'scheme' => [
-        //   'type' => \Elementor\Scheme_Color::get_type(),
-        //   'value' => \Elementor\Scheme_Color::COLOR_1,
-        // ],
         'default' => '#ffffff',
         'selectors' => [
           '{{WRAPPER}} .wrapper' => 'background-color: {{VALUE}}',
@@ -622,7 +594,7 @@ public function get_script_depends() {
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
         </div>
       <?php }  ?>
-      <div data-controls="<?php echo esc_attr($slide_controls); ?>" class="post-slider <?php echo esc_attr($nav_top); ?>  owl-carousel ">
+      <div data-controls="<?php echo esc_attr($slide_controls); ?>" class="post-slider owl-carousel owl-theme">
         <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
           <div class="wrapper">
             <?php if ( has_post_thumbnail() ) : ?>

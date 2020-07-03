@@ -42,6 +42,7 @@ class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
     blabla() {
       const controls = JSON.parse(this.elements.$secondSelector.attr('data-controls'));
       const autoslide = Boolean(controls.auto_nav_slide?true:false);
+      const nav_show = Boolean(controls.nav_show?true:false);
       const dot_nav = Boolean(controls.dot_nav_show?true:false);
       const item_count = parseInt( controls.item_count );
 
@@ -50,14 +51,14 @@ class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
                         items: item_count,
                         loop: true,
                         autoplay: autoslide,
-                        nav: false,
+                        nav: nav_show,
                         dots: dot_nav,
                         autoplayTimeout: 8000,
                         autoplayHoverPause: false,
                         mouseDrag: true,
                         smartSpeed: 1100,
                         margin:30,
-                        navText: ["<i class='icon icon-arrow-left'></i>", "<i class='icon icon-arrow-right'></i>"],
+                        navText: ["<i class='fas fa-arrow-left'></i>", "<i class='fas fa-arrow-right'></i>"],
                         responsive: {
                            0: {
                               items: 1,
