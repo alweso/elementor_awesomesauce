@@ -185,6 +185,7 @@ protected function render() {
         'posts_per_page' => 6,
         'meta_key'    => 'is_post_featured',
         'meta_value'  => true,
+        'ignore_sticky_posts' => 1,
       );
 
       $query = new \WP_Query($args); ?>

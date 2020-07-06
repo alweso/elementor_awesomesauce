@@ -50,7 +50,7 @@ class Plugin {
     wp_register_script( 'elementor-awesomesauce', plugins_url( '/assets/js/awesomesauce.js', __FILE__ ), [ 'jquery' ], false, true );
   }
 
-  
+
 
   /**
    * Include Widgets files
@@ -71,6 +71,7 @@ class Plugin {
     require_once( __DIR__ . '/widgets/featured-gallery.php' );
     require_once( __DIR__ . '/widgets/post-list.php' );
     require_once( __DIR__ . '/widgets/post-carousel.php' );
+    require_once( __DIR__ . '/widgets/post-list-tabs.php' );
   }
 
   /**
@@ -96,6 +97,7 @@ class Plugin {
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedGallery() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostList() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostCarousel() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostListTabs() );
 
   }
 

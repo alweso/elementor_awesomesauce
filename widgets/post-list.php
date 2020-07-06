@@ -444,6 +444,8 @@ class PostList extends Widget_Base {
     if($settings['post_pick_by']=='stickypost'){
       $arg['post__in'] = get_option( 'sticky_posts' );
       $arg['ignore_sticky_posts'] = 1;
+    } else {
+      $arg['ignore_sticky_posts'] = 1;
     }
 
     if($settings['post_pick_by']=='category') {
