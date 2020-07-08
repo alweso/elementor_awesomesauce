@@ -136,7 +136,7 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('no', 'elementor_awesomesauce'),
-        'default' => 'No',
+        'default' => 'no',
       ]
     );
 
@@ -245,7 +245,7 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('No', 'elementor_awesomesauce'),
-        'default' => 'yes',
+        'default' => 'Yes',
       ]
     );
 
@@ -256,7 +256,7 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('No', 'elementor_awesomesauce'),
-        'default' => 'yes',
+        'default' => 'Yes',
       ]
     );
     $this->add_control(
@@ -266,7 +266,7 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('No', 'elementor_awesomesauce'),
-        'default' => 'no',
+        'default' => 'No',
       ]
     );
     $this->add_control(
@@ -276,7 +276,7 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('No', 'elementor_awesomesauce'),
-        'default' => 'yes',
+        'default' => 'Yes',
       ]
     );
     $this->add_control(
@@ -286,7 +286,7 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('No', 'elementor_awesomesauce'),
-        'default' => 'no',
+        'default' => 'No',
       ]
     );
     $this->add_control(
@@ -296,20 +296,9 @@ public function get_script_depends() {
         'type' => Controls_Manager::SWITCHER,
         'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
         'label_off' => esc_html__('No', 'elementor_awesomesauce'),
-        'default' => 'no',
+        'default' => 'No',
       ]
     );
-
-      // $this->add_control(
-      //    'nav_top',
-      //    [
-      //        'label' => esc_html__('Nav top', 'digiqole'),
-      //        'type' => Controls_Manager::SWITCHER,
-      //        'label_on' => esc_html__('Yes', 'digiqole'),
-      //        'label_off' => esc_html__('No', 'digiqole'),
-      //        'default' => 'no',
-      //    ]
-      // );
 
     $this->end_controls_section();
     $this->start_controls_section(
@@ -590,9 +579,7 @@ public function get_script_depends() {
     if ( $queryd->have_posts() ) : ?>
     <!-- <div class="row"> -->
       <?php if($show_title) { ?>
-        <div class="col-12">
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-        </div>
       <?php }  ?>
       <div data-controls="<?php echo esc_attr($slide_controls); ?>" class="post-slider owl-carousel owl-theme">
         <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
@@ -622,7 +609,12 @@ public function get_script_depends() {
 
             <?php if($show_cat) { ?>
               <div class="category">
-                <?php the_category(); ?>
+                <?php
+                $categories = get_the_category();
+                foreach ( $categories as $category ) {
+                    echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
+                }
+                ?>
               </div>
             <?php }  ?>
 

@@ -471,9 +471,7 @@ class PostList extends Widget_Base {
     if ( $queryd->have_posts() ) : ?>
     <!-- <div class="row"> -->
       <?php if($show_title) { ?>
-        <div class="col-12">
           <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-        </div>
       <?php }  ?>
       <div class="big-wrapper">
         <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
@@ -489,7 +487,12 @@ class PostList extends Widget_Base {
 
               <?php if($show_cat) { ?>
                 <div class="category">
-                  <?php the_category(); ?>
+                  <?php
+                  $categories = get_the_category();
+                  foreach ( $categories as $category ) {
+                      echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
+                  }
+                  ?>
                 </div>
               <?php }  ?>
 

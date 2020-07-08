@@ -64,14 +64,13 @@ class Plugin {
     require_once( __DIR__ . '/widgets/post-tabs.php' );
     require_once( __DIR__ . '/widgets/post-grid.php' );
     require_once( __DIR__ . '/widgets/video-playlist.php' );
-    require_once( __DIR__ . '/widgets/post-tabs-type-one.php' );
     require_once( __DIR__ . '/widgets/category-list-images.php' );
     require_once( __DIR__ . '/widgets/featured-posts.php' );
-    require_once( __DIR__ . '/widgets/featured-posts-2.php' );
     require_once( __DIR__ . '/widgets/featured-gallery.php' );
     require_once( __DIR__ . '/widgets/post-list.php' );
     require_once( __DIR__ . '/widgets/post-carousel.php' );
     require_once( __DIR__ . '/widgets/post-list-tabs.php' );
+    require_once( __DIR__ . '/widgets/comments.php' );
   }
 
   /**
@@ -90,14 +89,13 @@ class Plugin {
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostTabs() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostGrid() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\VideoPlaylist() );
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostTabsTypeOne() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\CategoryListImages() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedPosts() );
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedPosts2() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedGallery() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostList() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostCarousel() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostListTabs() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Comments() );
 
   }
 

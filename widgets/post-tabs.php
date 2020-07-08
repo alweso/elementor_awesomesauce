@@ -525,7 +525,12 @@ protected function render() {
 
               <?php if($show_cat) { ?>
                 <div class="category">
-                  <?php the_category(); ?>
+                  <?php
+                  $categories = get_the_category();
+                  foreach ( $categories as $category ) {
+                      echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
+                  }
+                  ?>
                 </div>
               <?php }  ?>
 

@@ -90,61 +90,90 @@ protected function _register_controls() {
     [
       'label' => __( 'Title', 'elementor-awesomesauce' ),
       'type' => Controls_Manager::TEXT,
-      'default' => __( 'Latest posts', 'elementor-awesomesauce' ),
+      'default' => __( 'Categories', 'elementor-awesomesauce' ),
     ]
   );
 
   $this->add_control(
-    'post_count',
-    [
-      'label' => __( 'Post count', 'elementor-awesomesauce' ),
-      'type' => Controls_Manager::NUMBER,
-      'default' => __( '6', 'elementor-awesomesauce' ),
-    ]
-  );
+			'image_height',
+			[
+				'label' => __( 'Image height', 'plugin-domain' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px'],
+				'range' => [
+					'px' => [
+						'min' => 40,
+						'max' => 60,
+						'step' => 1,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 50,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .category-image-inner' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
 
-  $this->add_control(
-    'show_date',
-    [
-      'label' => esc_html__('Show Date', 'elementor-awesomesauce'),
-      'type' => Controls_Manager::SWITCHER,
-      'label_on' => esc_html__('Yes', 'digiqole'),
-      'label_off' => esc_html__('No', 'digiqole'),
-      'default' => 'yes',
-    ]
-  );
-
-  $this->add_control(
-    'tabs',
-    [
-      'label' => esc_html__('Tabs', 'elementor-awesomesauce'),
-      'type' => Controls_Manager::REPEATER,
-      'default' => [
-        [
-          'tab_title' => esc_html__('Add Label', 'elementor-awesomesauce'),
-          'post_cats' => 1,
+    $this->add_responsive_control(
+      'grid_item_padding',
+      [
+        'label' =>esc_html__( 'Item padding', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => [ 'px', 'em', '%' ],
+        'selectors' => [
+          '{{WRAPPER}} .category-image' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
         ],
-      ],
-      'fields' => [
-        [
-          'name' => 'post_cats',
-          'label' => __( 'Categories( Include )', 'elementor-awesomesauce' ),
-          'type' => \Elementor\Controls_Manager::SELECT2,
-          'options' => $this->post_category(),
-          'label_block' => true,
-          'multiple' => true,
-        ],
-        [
-          'name' => 'tab_title',
-          'label'         => esc_html__( 'Tab title', 'elementor-awesomesauce' ),
-          'type'          => Controls_Manager::TEXT,
-          'default'       => 'Add Label',
-        ],
-      ],
-    ]
-  );
+      ]
+    );
 
+    $this->add_control(
+      'grid_item_color',
+      [
+        'label' => __( 'Item background color', '' ),
+        'type' => \Elementor\Controls_Manager::COLOR,
+        // 'scheme' => [
+        //   'type' => \Elementor\Scheme_Color::get_type(),
+        //   'value' => \Elementor\Scheme_Color::COLOR_1,
+        // ],
+        'default' => '#ffffff',
+        'selectors' => [
+          '{{WRAPPER}} .category-image' => 'background-color: {{VALUE}}',
+        ],
+      ]
+    );
 
+    $this->add_responsive_control(
+      'thumbnail_margin_bottom',
+      [
+        'label' => __( 'Thumbnail margin bottom', 'elementor-awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::SLIDER,
+        'range' => [
+          'px' => [
+            'min' => 0,
+            'max' => 100,
+          ],
+        ],
+        'devices' => [ 'desktop', 'tablet', 'mobile' ],
+        'desktop_default' => [
+          'size' => 30,
+          'unit' => 'px',
+        ],
+        'tablet_default' => [
+          'size' => 20,
+          'unit' => 'px',
+        ],
+        'mobile_default' => [
+          'size' => 10,
+          'unit' => 'px',
+        ],
+        'selectors' => [
+          '{{WRAPPER}} .category-image' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+        ],
+      ]
+    );
 
   $this->end_controls_section();
 }
@@ -160,41 +189,22 @@ protected function _register_controls() {
 */
 protected function render() {
   $settings = $this->get_settings_for_display();
-  $tabs = $settings['tabs'];
-  $post_count = count($tabs);
-  $show_date = $settings['show_date'];
 
   ?>
-  <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+  <h2><?php echo $settings['title']; ?></h2>
 
-  <div class=="categorrrries">
+  <div class=="categories-with-image">
      <?php
-  $categories = get_categories();
-  foreach ($categories as $cat) {
-        echo '<img src="'.get_field('category_picture', $cat).'" />';
-    }
-?>
+        $categories = get_categories();
+        foreach ($categories as $cat) {
+              echo '<div class="category-image"><p>'.$cat->category_count.'</p><a href="'.get_category_link( $cat->cat_ID ).'" class="category-image-inner" style="display:block;background:url('.get_field('category_picture', $cat).');background-size:cover;">'.$cat->name.'</a></div>';
+          }
+
+      ?>
 </div>
   <?php }
 
   protected function _content_template() {
 
   }
-
-  public function post_category() {
-
-    $terms = get_terms( array(
-      'taxonomy'    => 'category',
-      'hide_empty'  => false,
-      'posts_per_page' => -1,
-      'suppress_filters' => false,
-    ) );
-
-    $cat_list = [];
-    foreach($terms as $post) {
-      $cat_list[$post->term_id]  = [$post->name];
-    }
-    return $cat_list;
-  }
-
 }

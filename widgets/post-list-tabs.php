@@ -86,11 +86,22 @@ protected function _register_controls() {
   );
 
   $this->add_control(
+    'show_title',
+    [
+      'label' => esc_html__('Show title', 'elementor_awesomesauce'),
+      'type' => Controls_Manager::SWITCHER,
+      'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+      'label_off' => esc_html__('No', 'elementor_awesomesauce'),
+      'default' => 'yes',
+    ]
+  );
+
+  $this->add_control(
     'title',
     [
       'label' => __( 'Title', 'elementor-awesomesauce' ),
       'type' => Controls_Manager::TEXT,
-      'default' => __( 'fds posts', 'elementor-awesomesauce' ),
+      'default' => __( 'Posts', 'elementor-awesomesauce' ),
     ]
   );
 
@@ -366,7 +377,9 @@ protected function render() {
 // $this->add_inline_editing_attributes( 'order_by', 'advanced' );
 // $this->add_inline_editing_attributes( 'post_count', 'advanced' );
   ?>
-  <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+  <?php if($show_title) { ?>
+      <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
+  <?php }  ?>
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a id="" class="nav-item nav-link active" data-toggle="tab" href="#posts-recent" role="tab" aria-controls="" aria-selected="true">Latest</a>
@@ -390,9 +403,6 @@ protected function render() {
       $queryd = new \WP_Query( $arg );
       if ( $queryd->have_posts() ) : ?>
       <!-- <div class="row"> -->
-        <?php if($show_title) { ?>
-            <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-        <?php }  ?>
         <div class="big-wrapper" style="display:grid">
           <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
             <div class="wrapper"  style="display:grid;grid-template-columns:1fr 2fr;">
@@ -407,7 +417,12 @@ protected function render() {
 
                 <?php if($show_cat) { ?>
                   <div class="category">
-                    <?php the_category(); ?>
+                    <?php
+                    $categories = get_the_category();
+                    foreach ( $categories as $category ) {
+                        echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
+                    }
+                    ?>
                   </div>
                 <?php }  ?>
 
@@ -491,7 +506,12 @@ protected function render() {
 
                 <?php if($show_cat) { ?>
                   <div class="category">
-                    <?php the_category(); ?>
+                    <?php
+                    $categories = get_the_category();
+                    foreach ( $categories as $category ) {
+                        echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
+                    }
+                    ?>
                   </div>
                 <?php }  ?>
 
@@ -573,7 +593,12 @@ protected function render() {
 
                 <?php if($show_cat) { ?>
                   <div class="category">
-                    <?php the_category(); ?>
+                    <?php
+                    $categories = get_the_category();
+                    foreach ( $categories as $category ) {
+                        echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
+                    }
+                    ?>
                   </div>
                 <?php }  ?>
 
