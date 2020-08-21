@@ -50,6 +50,10 @@ class Plugin {
     wp_register_script( 'elementor-awesomesauce', plugins_url( '/assets/js/awesomesauce.js', __FILE__ ), [ 'jquery' ], false, true );
   }
 
+  public function widget_styles() {
+		wp_register_style( 'elementor-awesomesauce', plugins_url( 'css/widgets.css', __FILE__ ) );
+	}
+
 
 
   /**
@@ -68,6 +72,7 @@ class Plugin {
     require_once( __DIR__ . '/widgets/featured-posts.php' );
     require_once( __DIR__ . '/widgets/featured-gallery.php' );
     require_once( __DIR__ . '/widgets/post-list.php' );
+    require_once( __DIR__ . '/widgets/post-block.php' );
     require_once( __DIR__ . '/widgets/post-carousel.php' );
     require_once( __DIR__ . '/widgets/post-list-tabs.php' );
     require_once( __DIR__ . '/widgets/comments.php' );
@@ -93,6 +98,7 @@ class Plugin {
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedPosts() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedGallery() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostList() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostBlock() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostCarousel() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PostListTabs() );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Comments() );

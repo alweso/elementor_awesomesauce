@@ -90,6 +90,8 @@ final class Elementor_Awesomesauce {
    */
   public function init() {
 
+    define( 'ELEMENTOR_AWESOMESAUCE', plugin_dir_path( __FILE__ ) );
+
     // Check if Elementor installed and activated
     if ( ! did_action( 'elementor/loaded' ) ) {
       add_action( 'admin_notices', array( $this, 'admin_notice_missing_main_plugin' ) );
@@ -109,7 +111,7 @@ final class Elementor_Awesomesauce {
     }
 
     //Add action for registering widgets categories
-      	add_action("elementor/elements/categories_registered",[ $this, "register_new_category"]);   
+      	add_action("elementor/elements/categories_registered",[ $this, "register_new_category"]);
 
     // Once we get here, We have passed all validation checks so we can safely include our plugin
     require_once( 'plugin.php' );
