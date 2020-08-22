@@ -1,9 +1,8 @@
 <?php if($show_title) { ?>
     <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
 <?php }  ?>
-<?php $rows = ($post_count - 1) / 2 ?>
 
-<div class="big-wrapper" style="grid-template-rows:<?php echo str_repeat('1fr ', $rows) ?>">
+<div class="big-wrapper" style="grid-template-rows:<?php echo str_repeat('1fr ', 2) ?>">
   <?php $i = 0; ?>
   <?php while ($queryd->have_posts()) : $queryd->the_post();
   if ( $i == 0 ) : ?>

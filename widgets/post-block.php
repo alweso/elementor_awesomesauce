@@ -217,7 +217,10 @@ class PostBlock extends Widget_Base {
         'label' => __( 'Post count', 'elementor-awesomesauce' ),
         'type' => Controls_Manager::NUMBER,
         'default' => __( 5, 'elementor-awesomesauce' ),
-        'condition' => [ 'block_style' => ['style-1', 'style-2', 'style-3', 'style-5', 'style-6'] ]
+        'min' => 5,
+				'max' => 13,
+				'step' => 1,
+        'condition' => [ 'block_style' => ['style-1', 'style-5', 'style-6'] ]
       ]
     );
 
@@ -228,6 +231,19 @@ class PostBlock extends Widget_Base {
         'type' => Controls_Manager::NUMBER,
         'default' => __( 6, 'elementor-awesomesauce' ),
         'condition' => [ 'block_style' => ['style-4'] ]
+      ]
+    );
+
+    $this->add_control(
+      'post_count_3',
+      [
+        'label' => __( 'Post count', 'elementor-awesomesauce' ),
+        'type' => Controls_Manager::NUMBER,
+        'default' => __( 5, 'elementor-awesomesauce' ),
+        'min' => 2,
+				'max' => 5,
+				'step' => 1,
+        'condition' => [ 'block_style' => ['style-2', 'style-3'] ]
       ]
     );
 
@@ -1198,6 +1214,7 @@ class PostBlock extends Widget_Base {
                     'label' => __( 'Thumbnail width', 'plugin-name' ),
                     'type' => \Elementor\Controls_Manager::HEADING,
                     'separator' => 'before',
+                    'condition' => [ 'block_style' => ['style-1', 'style-5'] ]
                   ]
                 );
 
@@ -1256,6 +1273,7 @@ class PostBlock extends Widget_Base {
     $show_tags        = $settings['show_tags'];
     $post_count      = $settings['post_count'];
     $post_count_2      = $settings['post_count_2'];
+    $post_count_3      = $settings['post_count_3'];
     $show_exerpt = $settings['show_exerpt'];
     $show_exerpt_2 = $settings['show_exerpt_2'];
     $crop	= (isset($settings['post_title_crop'])) ? $settings['post_title_crop'] : 20;
@@ -1298,7 +1316,11 @@ class PostBlock extends Widget_Base {
       $arg['posts_per_page'] = $settings['post_count_2'];
     }
 
-    if($settings['block_style'] !='style-4') {
+    if($settings['block_style']=='style-2' || $settings['block_style']=='style-3') {
+      $arg['posts_per_page'] = $settings['post_count_3'];
+    }
+
+    if($settings['block_style']=='style-1' || $settings['block_style']=='style-5' || $settings['block_style']=='style-6') {
       $arg['posts_per_page'] = $settings['post_count'];
     }
 
