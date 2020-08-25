@@ -116,13 +116,13 @@ class PostList extends Widget_Base {
     );
 
     $this->add_control(
-      'show_excerpt',
+      'show_exerpt',
       [
         'label' => esc_html__('Show Description', 'elementor_awesomesauce'),
         'type' => Controls_Manager::SWITCHER,
-        'label_on' => esc_html__('yes', 'elementor_awesomesauce'),
-        'label_off' => esc_html__('no', 'elementor_awesomesauce'),
-        'default' => 'No',
+        'label_on' => esc_html__('Yes', 'elementor_awesomesauce'),
+        'label_off' => esc_html__('No', 'elementor_awesomesauce'),
+        'default' => 'no',
       ]
     );
 
@@ -132,7 +132,7 @@ class PostList extends Widget_Base {
         'label'         => esc_html__( 'Post Exerpt limit', 'elementor_awesomesauce' ),
         'type'          => Controls_Manager::NUMBER,
         'default' => '30',
-        'condition' => [ 'show_excerpt' => ['yes'] ]
+        'condition' => [ 'show_exerpt' => ['yes'] ]
 
       ]
     );
@@ -298,50 +298,93 @@ class PostList extends Widget_Base {
     $this->end_controls_section();
 
     $this->start_controls_section(
-      'typography_section',
+      'general_style_settings',
       [
-        'label' => __( 'Typography and text settings', 'elementor-awesomesauce' ),
+        'label' => __( 'General settings', 'elementor-awesomesauce' ),
         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
       ]
     );
 
-    $this->add_group_control(
-      \Elementor\Group_Control_Typography::get_type(),
-      [
-        'label' => __( 'Title typography', '' ),
-        'name' => 'title_typography',
-        'selector' => '{{WRAPPER}} .title',
-      ]
-    );
 
-    $this->add_group_control(
-      \Elementor\Group_Control_Typography::get_type(),
-      [
-        'label' => __( 'Description typography', '' ),
-        'name' => 'desc_typography',
-        'selector' => '{{WRAPPER}} .description',
-      ]
-    );
+
+                $this->add_control(
+                  'big_typo_section',
+                  [
+                    'label' => __( 'Typography', 'plugin-name' ),
+                    'type' => \Elementor\Controls_Manager::HEADING,
+                    'separator' => 'before',
+                  ]
+                );
+
+                $this->add_group_control(
+                  \Elementor\Group_Control_Typography::get_type(),
+                  [
+                    'label' => __( 'Title typography', '' ),
+                    'name' => 'big_title_typography',
+                    'selector' => '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .news-title',
+                  ]
+                );
+
+                $this->add_control(
+                  'big_title_color_1',
+                  [
+                    'label' => __( 'Title color', '' ),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#000000',
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .news-title' => 'color: {{VALUE}}',
+                    ],
+                  ]
+                );
+
+                $this->add_group_control(
+                  \Elementor\Group_Control_Typography::get_type(),
+                  [
+                    'label' => __( 'Description typography', '' ),
+                    'name' => 'big_desc_typography',
+                    'selector' => '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description',
+                  ]
+                );
+
+
+                $this->add_control(
+                  'big_description_color_2',
+                  [
+                    'label' => __( 'Description color', '' ),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#000000',
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description-inner p' => 'color: {{VALUE}}',
+                    ],
+                  ]
+                );
+
+                $this->add_group_control(
+                  \Elementor\Group_Control_Typography::get_type(),
+                  [
+                    'label' => __( 'Big details typography', '' ),
+                    'name' => 'big_details_typography',
+                    'selector' => '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description-inner .comments-views-date span',
+                  ]
+                );
+
+                $this->add_control(
+                  'big_details_color_2',
+                  [
+                    'label' => __( 'details color', '' ),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#989898',
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description-inner .comments-views-date span' => 'color: {{VALUE}}',
+                    ],
+                  ]
+                );
 
     $this->add_control(
-      'title_color',
+      'big_thumbnail_border',
       [
-        'label' => __( 'Title Color', '' ),
-        'type' => \Elementor\Controls_Manager::COLOR,
-        'default' => '#000000',
-        'selectors' => [
-          '{{WRAPPER}} .title' => 'color: {{VALUE}}',
-        ],
-      ]
-    );
-
-    $this->end_controls_section();
-
-    $this->start_controls_section(
-      'border_section',
-      [
-        'label' => __( 'List item border', 'elementor-awesomesauce' ),
-        'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+        'label' => __( 'Thumbnail border', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::HEADING,
       ]
     );
 
@@ -349,63 +392,281 @@ class PostList extends Widget_Base {
     $this->add_group_control(
       \Elementor\Group_Control_Border::get_type(),
       [
-        'name' => 'border',
-        'selector' => '{{WRAPPER}} .wrapper',
-      ]
-    );
-
-    $this->end_controls_section();
-
-    $this->start_controls_section(
-      'sizing_section',
-      [
-        'label' => __( 'Paddings, margins and background', 'elementor-awesomesauce' ),
-        'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-      ]
-    );
-
-    $this->add_responsive_control(
-      'list_item_padding',
-      [
-        'label' =>esc_html__( 'List item padding', 'elementor_awesomesauce' ),
-        'type' => \Elementor\Controls_Manager::DIMENSIONS,
-        'size_units' => [ 'px', 'em', '%' ],
-        'selectors' => [
-          '{{WRAPPER}} .wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        'name' => 'big_thumb_border',
+        'fields_options' => [
+      'border' => ['default' => 'solid'],
+      'width' => [
+        'default' => [
+          'top' => 6,
+          'right' => 6,
+          'bottom' => 6,
+          'left' => 6,
+          'unit'=> 'px',
+          'isLinked' => true,
         ],
+      ],
+      'color' => ['default' => '#FFFFFF'],
+    ],
+        'selector' => '{{WRAPPER}} .awesomesauce-post-block .wrapper .thumbnail',
       ]
     );
 
-    $this->add_responsive_control(
-      'list_item_row_gap',
+    $this->add_control(
+      'item_border',
       [
-        'label' =>esc_html__( 'List item row gap (css grid)', 'elementor_awesomesauce' ),
-        'type' => \Elementor\Controls_Manager::NUMBER,
-        'default' => 15,
+        'label' => __( 'Item border', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::HEADING,
+        'separator' => 'before'
+      ]
+    );
+
+    $this->add_group_control(
+      \Elementor\Group_Control_Border::get_type(),
+      [
+        'name' => 'big_itemborder',
+        'fields_options' => [
+      'width' => [
+        'default' => [
+          'top' => 1,
+          'right' => 1,
+          'bottom' => 1,
+          'left' => 1,
+          'unit'=> 'px',
+          'isLinked' => true,
+        ],
+      ],
+      'color' => ['default' => '#000'],
+    ],
+        'selector' => '{{WRAPPER}} .awesomesauce-post-block .wrapper',
+      ]
+    );
+
+    $this->add_control(
+      'thumbnail_settings',
+      [
+        'label' => __( 'Thumbnail settings', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::HEADING,
+        'separator' => 'before'
+      ]
+    );
+
+
+    $this->add_control(
+      'thumbnail_width',
+      [
+        'label' => __( 'Thumbnail width', 'elementor-awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::SLIDER,
+        'size_units' => [ 'fr'],
+        'range' => [
+          'fr' => [
+            'min' => 10,
+            'max' => 50,
+            'step' => 1,
+          ],
+        ],
+        'default' => [
+          'unit' => 'fr',
+          'size' => 33,
+        ],
         'selectors' => [
-          '{{WRAPPER}} .wrapper' => 'margin-bottom: {{VALUE}}px;',
+          '{{WRAPPER}} .wrapper--big' => 'grid-template-columns: {{SIZE}}{{UNIT}} 66fr;',
         ],
       ]
     );
 
     $this->add_control(
-      'list_item_color',
+      'background',
       [
-        'label' => __( 'List item color', '' ),
-        'type' => \Elementor\Controls_Manager::COLOR,
-        // 'scheme' => [
-        //   'type' => \Elementor\Scheme_Color::get_type(),
-        //   'value' => \Elementor\Scheme_Color::COLOR_1,
-        // ],
-        'default' => '#ffffff',
+        'label' => __( 'Background', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::HEADING,
+        'separator' => 'before'
+      ]
+    );
+
+
+                        $this->add_control(
+                          'grid_item_color',
+                          [
+                            'label' => __( 'Grid item background color', '' ),
+                            'type' => \Elementor\Controls_Manager::COLOR,
+                            'default' => 'rgba(255,255,255,0)',
+                            'selectors' => [
+                              '{{WRAPPER}} .awesomesauce-post-block .wrapper' => 'background-color: {{VALUE}}',
+                            ],
+                          ]
+                        );
+
+
+
+
+        $this->add_control(
+          'paddings',
+          [
+            'label' => __( 'Paddings', 'elementor_awesomesauce' ),
+            'type' => \Elementor\Controls_Manager::HEADING,
+            'separator' => 'before',
+          ]
+        );
+
+
+    $this->add_responsive_control(
+      'big_grid_item_padding',
+      [
+        'label' =>esc_html__( 'Big Grid item padding', 'elementor_awesomesauce' ),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => [ 'px'],
+        'placeholder' => '0',
+        'default' => [
+          'top' => '0',
+          'right' => '0',
+          'bottom' => '0',
+          'left' => '0',
+          'unit' => 'px',
+          'isLinked' => true,
+        ],
         'selectors' => [
-          '{{WRAPPER}} .wrapper' => 'background-color: {{VALUE}}',
+          '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description-inner' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
         ],
       ]
     );
 
 
-    $this->end_controls_section();
+            $this->add_control(
+              'big_margins_section',
+              [
+                'label' => __( 'Margins', 'plugin-name' ),
+                'type' => \Elementor\Controls_Manager::HEADING,
+                'separator' => 'before',
+              ]
+            );
+
+
+
+
+                $this->add_responsive_control(
+                  'big_category_margin_bottom',
+                  [
+                    'label' => __( 'Category margin bottom', 'elementor-awesomesauce' ),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'range' => [
+                      'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                      ],
+                    ],
+                    'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                    'desktop_default' => [
+                      'size' => 15,
+                      'unit' => 'px',
+                    ],
+                    'tablet_default' => [
+                      'size' => 20,
+                      'unit' => 'px',
+                    ],
+                    'mobile_default' => [
+                      'size' => 10,
+                      'unit' => 'px',
+                    ],
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .category' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                    ],
+                  ]
+                );
+
+                $this->add_responsive_control(
+                  'big_title_margin_bottom',
+                  [
+                    'label' => __( 'Title margin bottom', 'elementor-awesomesauce' ),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'range' => [
+                      'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                      ],
+                    ],
+                    'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                    'desktop_default' => [
+                      'size' => 15,
+                      'unit' => 'px',
+                    ],
+                    'tablet_default' => [
+                      'size' => 20,
+                      'unit' => 'px',
+                    ],
+                    'mobile_default' => [
+                      'size' => 10,
+                      'unit' => 'px',
+                    ],
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .news-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                    ],
+                  ]
+                );
+
+                $this->add_responsive_control(
+                  'big_excerpt_margin_bottom',
+                  [
+                    'label' => __( 'Excerpt margin bottom', 'elementor-awesomesauce' ),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'range' => [
+                      'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                      ],
+                    ],
+                    'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                    'desktop_default' => [
+                      'size' => 15,
+                      'unit' => 'px',
+                    ],
+                    'tablet_default' => [
+                      'size' => 20,
+                      'unit' => 'px',
+                    ],
+                    'mobile_default' => [
+                      'size' => 10,
+                      'unit' => 'px',
+                    ],
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description p' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                    ],
+                  ]
+                );
+
+                $this->add_responsive_control(
+                  'item_margin_bottom',
+                  [
+                    'label' => __( 'Item margin bottom', 'elementor-awesomesauce' ),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'range' => [
+                      'px' => [
+                        'min' => 0,
+                        'max' => 30,
+                      ],
+                    ],
+                    'devices' => [ 'desktop', 'tablet', 'mobile' ],
+                    'desktop_default' => [
+                      'size' => 10,
+                      'unit' => 'px',
+                    ],
+                    'tablet_default' => [
+                      'size' => 10,
+                      'unit' => 'px',
+                    ],
+                    'mobile_default' => [
+                      'size' => 10,
+                      'unit' => 'px',
+                    ],
+                    'selectors' => [
+                      '{{WRAPPER}} .awesomesauce-post-block .wrapper--big ' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                    ],
+                  ]
+                );
+
+
+
+        $this->end_controls_section();
+
   }
 
   /**
@@ -419,15 +680,19 @@ class PostList extends Widget_Base {
   */
   protected function render() {
     $settings = $this->get_settings_for_display();
+    $block_style = $settings['block_style'];
     $show_title         = $settings['show_title'];
-    $show_cat           = $settings['show_cat'];
-    $show_date          = $settings['show_date'];
-    $show_author         = $settings['show_author'];
-    $show_views         = $settings['show_views'];
-    $show_comments         = $settings['show_comments'];
-    $show_tags        = $settings['show_tags'];
-    $crop	= (isset($settings['post_title_crop'])) ? $settings['post_title_crop'] : 20;
-    $post_content_crop	= (isset($settings['post_content_crop'])) ? $settings['post_content_crop'] : 50;
+
+    $show_cat_small           = $settings['show_cat'];
+    $show_date_small          = $settings['show_date'];
+    $show_author_small         = $settings['show_author'];
+    $show_views_small         = $settings['show_views'];
+    $show_comments_small         = $settings['show_comments'];
+    $show_tags_small        = $settings['show_tags'];
+    $post_count_small      = $settings['post_count'];
+    $show_exerpt_small = $settings['show_exerpt'];
+    $crop_small	= (isset($settings['post_title_crop'])) ? $settings['post_title_crop'] : 20;
+    $post_content_crop_small	= (isset($settings['post_content_crop'])) ? $settings['post_content_crop'] : 50;
 
     $this->add_inline_editing_attributes( 'title', 'none' );
     ?>
@@ -469,83 +734,12 @@ class PostList extends Widget_Base {
 
     $queryd = new \WP_Query( $arg );
     if ( $queryd->have_posts() ) : ?>
-    <!-- <div class="row"> -->
-      <?php if($show_title) { ?>
-          <h2 <?php echo $this->get_render_attribute_string( 'title' ); ?>><?php echo $settings['title']; ?></h2>
-      <?php }  ?>
-      <div class="big-wrapper">
-        <?php while ($queryd->have_posts()) : $queryd->the_post(); ?>
-          <div class="wrapper" style="display:grid;grid-template-columns:1fr 2fr;grid-column-gap:15px;">
-            <?php if ( has_post_thumbnail() ) : ?>
-              <div class="thumbnail">
-              <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="widget-image d-block">
-                <?php the_post_thumbnail('featured-small', ['class' => 'img-fluid', 'title' => 'Feature image']); ?>
-              </a>
-            </div>
-            <?php endif; ?>
-            <div class="description">
-
-              <?php if($show_cat) { ?>
-                <div class="category">
-                  <?php
-                  $categories = get_the_category();
-                  foreach ( $categories as $category ) {
-                      echo '<span style="display:inline-block; color:white;padding:5px 10px; margin-right:10px; background-color:'.get_field('category_colors', $category).'" class="acf-category-color">'.$category->name.'</span>';
-                  }
-                  ?>
-                </div>
-              <?php }  ?>
-
-              <h2 class="title"><?php echo esc_html(wp_trim_words(get_the_title(), $crop,'')); ?></h2>
-
-              <?php if($settings['show_excerpt']) {?>
-                <p><?php echo esc_html( wp_trim_words(get_the_excerpt(),$settings['post_content_crop'],'...') );?></p>
-              <?php } ?>
-
-              <?php if($show_author) {?>
-                <div class="author">
-                  <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" class="author-avatar">
-                    <?php echo get_avatar( get_the_author_meta( 'ID' ), 40); ?>
-                  </a>
-                  <span>by <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>"><?php the_author(); ?></a></span>
-                </div>
-              <?php } ?>
-
-
-              <?php if($show_date) { ?>
-                <div class="date">
-                  <?php the_date( 'F j, Y' ); ?>
-                </div>
-              <?php }  ?>
-
-              <?php if($show_comments) { ?>
-                <div class="comments">
-                  <?php  echo get_comments_number(); ?>
-                </div>
-              <?php }  ?>
-              <?php if($show_views) { ?>
-                <div class="views">
-                  <?php  echo get_field('number_of_views'); ?>
-                </div>
-              <?php }  ?>
-
-              <?php if($show_tags) { ?>
-                <div class="tags">
-                  <?php  the_tags(); ?>
-                </div>
-              <?php }  ?>
-
-            </div>
-
-
-          </div>
-          <!-- </div> -->
-        <?php endwhile; ?>
-      </div>
+    <div class="awesomesauce-post-block post-list">
+        <?php  require 'block_styles/post-list.php'; ?>
       <?php wp_reset_postdata(); ?>
-    <!-- </div> -->
-  <?php endif; ?>
-<?php }
+    </div>
+    <?php endif; ?>
+    <?php }
 
 protected function _content_template() {
 
