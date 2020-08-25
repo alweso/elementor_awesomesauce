@@ -522,7 +522,7 @@ class PostList extends Widget_Base {
           'bottom' => '0',
           'left' => '0',
           'unit' => 'px',
-          'isLinked' => true,
+          'isLinked' => false,
         ],
         'selectors' => [
           '{{WRAPPER}} .awesomesauce-post-block .wrapper--big .description-inner' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
