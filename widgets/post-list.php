@@ -556,11 +556,11 @@ class PostList extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 10,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 10,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
@@ -586,15 +586,15 @@ class PostList extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
-                      'size' => 10,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'selectors' => [
@@ -616,15 +616,15 @@ class PostList extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
-                      'size' => 10,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'selectors' => [

@@ -653,11 +653,11 @@ class PostGrid extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 10,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 10,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
@@ -685,11 +685,11 @@ class PostGrid extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 10,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 10,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
@@ -715,15 +715,15 @@ class PostGrid extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
-                      'size' => 10,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'selectors' => [
@@ -745,15 +745,15 @@ class PostGrid extends Widget_Base {
                     ],
                     'devices' => [ 'desktop', 'tablet', 'mobile' ],
                     'desktop_default' => [
-                      'size' => 15,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'tablet_default' => [
-                      'size' => 20,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'mobile_default' => [
-                      'size' => 10,
+                      'size' => 5,
                       'unit' => 'px',
                     ],
                     'selectors' => [
@@ -781,7 +781,6 @@ class PostGrid extends Widget_Base {
     $settings = $this->get_settings_for_display();
     $block_style = $settings['block_style'];
     $show_title         = $settings['show_title'];
-
     $show_cat           = $settings['show_cat'];
     $show_date          = $settings['show_date'];
     $show_author         = $settings['show_author'];
